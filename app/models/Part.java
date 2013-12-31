@@ -29,10 +29,37 @@ public final class Part extends Model {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long id; // SUPPRESS CHECKSTYLE getter/setter create play framework.
 
+	/**
+	 * Part name.
+	 */
+	@Column
+	public String name; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Create date.
+	 */
 	@Column
 	@NotNull
 	@CreatedTimestamp
-	public Date createDate;
+	public Date createDate; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Modify date.
+	 */
+	@Column
+	public Date modifyDate; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Part number.
+	 */
+	@Column
+	public String number; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Finder.
+	 */
+	public static Model.Finder<Long, Part> find = new Model.Finder<Long, Part>( // SUPPRESS CHECKSTYLE
+			Long.class, Part.class);
 
 	/**
 	 * Serial Version ID.
