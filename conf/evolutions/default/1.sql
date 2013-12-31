@@ -19,8 +19,9 @@ create table parts (
   id                        bigint auto_increment not null,
   name                      varchar(255),
   modify_date               datetime,
-  number                    varchar(255),
+  number                    varchar(255) not null,
   create_date               datetime not null,
+  constraint uq_parts_number unique (number),
   constraint pk_parts primary key (id))
 ;
 

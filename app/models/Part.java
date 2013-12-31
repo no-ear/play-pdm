@@ -52,7 +52,8 @@ public final class Part extends Model {
 	/**
 	 * Part number.
 	 */
-	@Column
+	@Column(unique = true)
+	@NotNull
 	public String number; // SUPPRESS CHECKSTYLE
 
 	/**
