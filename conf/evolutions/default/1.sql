@@ -25,6 +25,17 @@ create table parts (
   constraint pk_parts primary key (id))
 ;
 
+create table persons (
+  id                        bigint auto_increment not null,
+  name                      varchar(255) not null,
+  full_name                 varchar(255),
+  password_hash             varchar(255),
+  title                     varchar(255),
+  constraint uq_persons_name unique (name),
+  constraint uq_persons_full_name unique (full_name),
+  constraint pk_persons primary key (id))
+;
+
 alter table part_versions add constraint fk_part_versions_part_1 foreign key (part_id) references parts (id) on delete restrict on update restrict;
 create index ix_part_versions_part_1 on part_versions (part_id);
 
@@ -37,6 +48,8 @@ SET FOREIGN_KEY_CHECKS=0;
 drop table part_versions;
 
 drop table parts;
+
+drop table persons;
 
 SET FOREIGN_KEY_CHECKS=1;
 

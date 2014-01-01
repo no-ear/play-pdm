@@ -38,13 +38,11 @@ public final class Person extends Model {
 	 * User name.
 	 */
 	@Column(unique = true)
-	@NotNull
 	public String fullName; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Password hash.
 	 */
-	@NotNull
 	@Column
 	public String passwordHash; // SUPPRESS CHECKSTYLE
 
