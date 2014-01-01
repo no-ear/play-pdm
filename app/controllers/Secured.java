@@ -11,7 +11,7 @@ public final class Secured extends Security.Authenticator {
 
 	@Override
 	public String getUsername(final Context ctx) {
-		return ctx.session().get("loginId");
+		return ctx.session().get("name");
 	}
 
 	@Override

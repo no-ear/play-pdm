@@ -30,6 +30,7 @@ create table persons (
   name                      varchar(255) not null,
   full_name                 varchar(255),
   password_hash             varchar(255),
+  salt                      varchar(255),
   title                     varchar(255),
   constraint uq_persons_name unique (name),
   constraint uq_persons_full_name unique (full_name),

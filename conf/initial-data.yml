@@ -1,2 +1,4 @@
 - !!models.Person
     name: administrator
+    passwordHash: 114eb89cbc5ca209e314d9a524d61f3e1c5be7bce51f8173e9663459e3dc19a8
+    salt: nqf_dJ)/0Hpbg;)bg)%QiAdeZZ{R#w@}X-~uKu=

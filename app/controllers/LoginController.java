@@ -31,13 +31,13 @@ public class LoginController extends Controller {
 				.bindFromRequest();
 		LoginProperty loginUser = loginForm.get();
 
-		Person user = Person.authenticate(loginUser.name, loginUser.password);
+		Person person = Person.authenticate(loginUser.name, loginUser.password);
 
-		if (user == null) {
+		if (person == null) {
 			return badRequest(signin.render());
 		} else {
 			session().clear();
-			session("loginId", user.name);
+			session("name", person.name);
 
 			return redirect(routes.Application.index());
 		}

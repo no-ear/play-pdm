@@ -1,13 +1,11 @@
 package models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.fakeGlobal;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.persistence.PersistenceException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +16,17 @@ import tests.TestUtility;
 /**
  * Part version test.
  */
-public final class PartVersionTest extends WithApplication {
+public final class PersonTest extends WithApplication {
+
+	/**
+	 * Test name. Const value.
+	 */
+	private static final String NAME = "administrator";
+
+	/**
+	 * Test password. Const value.
+	 */
+	private static final String PASSWORD = "test";
 
 	/**
 	 * Before test database initialize.
@@ -41,28 +49,19 @@ public final class PartVersionTest extends WithApplication {
 	 * build new part version.
 	 */
 	@Test
-	public void buildPartVersion() {
-		Part part = new Part();
-		part.number = "SCREW-0001";
+	public void buildPerson() {
+		Person personProperty = new Person();
 
-		PartVersion partVersion = new PartVersion();
+		personProperty.name = NAME;
+		personProperty.password = PASSWORD;
 
-		PartVersion.buildPartVersion(part, partVersion);
+		Person person = Person.build(personProperty);
 
-		assertEquals(partVersion.part, part);
-		assertEquals(partVersion.version, 1);
-		assertNotNull(partVersion.createDate);
-	}
+		// System.out.println(person.passwordHash);
+		// System.out.println(person.salt);
 
-	/**
-	 * build new part version set null number error.
-	 */
-	@Test(expected = PersistenceException.class)
-	public void buildPartVersionNumberNull() {
-		Part part = new Part();
+		Person result = Person.authenticate(NAME, PASSWORD);
 
-		PartVersion partVersion = new PartVersion();
-
-		PartVersion.buildPartVersion(part, partVersion);
+		assertEquals(person, result);
 	}
 }
