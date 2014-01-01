@@ -77,4 +77,15 @@ public final class Person extends Model {
 		return person;
 	}
 
+	/**
+	 * Authenticate with name and password.
+	 * 
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public static Person authenticate(String name, String password) {
+		return null;
+	}
+
 }
