@@ -1,5 +1,8 @@
 package models;
 
+import java.lang.reflect.Field;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -131,6 +134,35 @@ public final class Person extends Model {
 		}
 
 		return null;
+	}
+
+	public static Person build(Map<String, Object> properties) {
+
+		Person person = new Person();
+
+		Field[] fields = Person.class.getFields();
+
+		for (Field field : fields) {
+			if (!properties.containsKey(field.getName())) {
+				continue;
+			}
+
+			Object object = properties.get(field.getName());
+			try {
+				field.set(person, object);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				// No reachable code?
+				e.printStackTrace();
+			}
+		}
+
+		person.salt = RandomStringUtils.randomAscii(RANDOM_STRING_LENGTH);
+		person.passwordHash = DigestUtils.sha256Hex(person.password
+				+ person.salt);
+
+		person.save();
+
+		return person;
 	}
 
 }

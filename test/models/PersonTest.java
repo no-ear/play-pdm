@@ -64,4 +64,21 @@ public final class PersonTest extends WithApplication {
 
 		assertEquals(person, result);
 	}
+
+	/**
+	 * build new part version.
+	 */
+	@Test
+	public void buildPersonProperties() {
+		Map<String, Object> properties = new HashMap<String, Object>();
+
+		properties.put("name", NAME);
+		properties.put("password", PASSWORD);
+
+		Person person = Person.build(properties);
+
+		Person result = Person.authenticate(NAME, PASSWORD);
+
+		assertEquals(person, result);
+	}
 }
