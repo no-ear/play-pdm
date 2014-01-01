@@ -7,6 +7,8 @@ import static play.test.Helpers.fakeGlobal;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.PersistenceException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,5 +53,18 @@ public final class PartVersionTest extends WithApplication {
 		assertEquals(partVersion.part, part);
 		assertEquals(partVersion.version, 1);
 		assertNotNull(partVersion.createDate);
+	}
+
+	/**
+	 * build new part version set null number error.
+	 */
+	@Test(expected = PersistenceException.class)
+	public void buildPartVersionNumberNull() {
+		Part part = new Part();
+
+		PartVersion partVersion = new PartVersion();
+
+		PartVersion.buildPartVersion(part, partVersion);
+
 	}
 }
