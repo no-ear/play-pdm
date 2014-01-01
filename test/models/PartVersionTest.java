@@ -65,6 +65,5 @@ public final class PartVersionTest extends WithApplication {
 		PartVersion partVersion = new PartVersion();
 
 		PartVersion.buildPartVersion(part, partVersion);
-
 	}
 }
