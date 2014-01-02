@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Routes;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
@@ -20,4 +21,14 @@ public class Application extends Controller {
 		return ok(index.render());
 	}
 
+	/**
+	 * Create JavaScript router.
+	 * 
+	 * @return Http response. JavaScript router file.
+	 */
+	public static Result javascriptRoutes() {
+		response().setContentType("text/javascript");
+		return ok(Routes.javascriptRouter("jsRoutes",
+				controllers.routes.javascript.UserManagerController.create()));
+	}
 }
