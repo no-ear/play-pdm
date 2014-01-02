@@ -50,32 +50,15 @@ public final class PersonTest extends WithApplication {
 	 */
 	@Test
 	public void buildPerson() {
-		Person personProperty = new Person();
-
-		personProperty.name = NAME;
-		personProperty.password = PASSWORD;
-
-		Person person = Person.build(personProperty);
-
-		// System.out.println(person.passwordHash);
-		// System.out.println(person.salt);
-
-		Person result = Person.authenticate(NAME, PASSWORD);
-
-		assertEquals(person, result);
-	}
-
-	/**
-	 * build new part version.
-	 */
-	@Test
-	public void buildPersonProperties() {
 		Map<String, Object> properties = new HashMap<String, Object>();
 
 		properties.put("name", NAME);
 		properties.put("password", PASSWORD);
 
 		Person person = Person.build(properties);
+
+		// System.out.println(person.passwordHash);
+		// System.out.println(person.salt);
 
 		Person result = Person.authenticate(NAME, PASSWORD);
 

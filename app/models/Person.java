@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -48,13 +47,6 @@ public final class Person extends Model {
 	public String fullName; // SUPPRESS CHECKSTYLE
 
 	/**
-	 * Password(build property).<br>
-	 * Not column.
-	 */
-	@Transient
-	public String password; // SUPPRESS CHECKSTYLE
-
-	/**
 	 * Password hash.
 	 */
 	@Column
@@ -90,24 +82,6 @@ public final class Person extends Model {
 	 * Serial Version ID.
 	 */
 	private static final long serialVersionUID = -6872558365573836112L;
-
-	/**
-	 * Build new user.
-	 * 
-	 * @param person
-	 *            New person property
-	 * @return New user
-	 */
-	public static Person build(final Person person) {
-
-		person.salt = RandomStringUtils.randomAscii(RANDOM_STRING_LENGTH);
-		person.passwordHash = DigestUtils.sha256Hex(person.password
-				+ person.salt);
-
-		person.save();
-
-		return person;
-	}
 
 	/**
 	 * Authenticate with name and password.
@@ -163,9 +137,15 @@ public final class Person extends Model {
 			}
 		}
 
+		// Properties have password.
+		if (!properties.containsKey("password")) {
+			return null;
+		}
+
+		String password = (String) properties.get("password");
+
 		person.salt = RandomStringUtils.randomAscii(RANDOM_STRING_LENGTH);
-		person.passwordHash = DigestUtils.sha256Hex(person.password
-				+ person.salt);
+		person.passwordHash = DigestUtils.sha256Hex(password + person.salt);
 
 		person.save();
 
