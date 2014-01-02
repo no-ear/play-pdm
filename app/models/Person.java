@@ -1,5 +1,6 @@
 package models;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -9,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import annotation.PropertyType;
 import play.db.ebean.Model;
 
 /**
@@ -38,12 +41,14 @@ public final class Person extends Model {
 	 */
 	@Column(unique = true)
 	@NotNull
+	@PropertyType(type = "text")
 	public String name; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * User name.
 	 */
 	@Column(unique = true)
+	@PropertyType(type = "text")
 	public String fullName; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -62,7 +67,15 @@ public final class Person extends Model {
 	 * e.g. CEO, manager, officer, etc.
 	 */
 	@Column
+	@PropertyType(type = "text")
 	public String title; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * password. property entry.
+	 */
+	@Transient
+	@PropertyType(type = "text")
+	public String password; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Random seed string length.<br>
@@ -152,4 +165,39 @@ public final class Person extends Model {
 		return person;
 	}
 
+	public static String setPropertiesForm() {
+
+		String resultHtml = "";
+
+		Field[] fields = Person.class.getFields();
+
+		for (Field field : fields) {
+			PropertyType propertyType = field.getAnnotation(PropertyType.class);
+			if (propertyType == null) {
+				continue;
+			}
+
+			boolean isRequired = false;
+			if (field.getAnnotation(NotNull.class) != null) {
+				isRequired = true;
+			}
+
+			String inputHtml = "<div class='form-group'>"
+					+ "<label class='col-sm-2 control-label'>"
+					+ field.getName() + "</label>" + "<div class='col-sm-10'>"
+					+ "<input type='" + propertyType.type()
+					+ "' class='form-control' name='" + field.getName() + "' ";
+
+			if (isRequired) {
+				inputHtml += "required";
+			}
+
+			inputHtml += " >" + "</div>" + "</div>";
+
+			resultHtml += inputHtml;
+
+		}
+
+		return resultHtml;
+	}
 }
