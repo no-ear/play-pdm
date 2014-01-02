@@ -1,6 +1,5 @@
 package models;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -165,7 +164,12 @@ public final class Person extends Model {
 		return person;
 	}
 
-	public static String setPropertiesForm() {
+	/**
+	 * Create property form html piece.
+	 * 
+	 * @return html piece
+	 */
+	public static String generatePropertiesForm() {
 
 		String resultHtml = "";
 
