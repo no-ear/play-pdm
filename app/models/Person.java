@@ -163,45 +163,4 @@ public final class Person extends Model {
 
 		return person;
 	}
-
-	/**
-	 * Create property form html piece.
-	 * 
-	 * @return html piece
-	 */
-	public static String generatePropertiesForm() {
-
-		String resultHtml = "";
-
-		Field[] fields = Person.class.getFields();
-
-		for (Field field : fields) {
-			PropertyType propertyType = field.getAnnotation(PropertyType.class);
-			if (propertyType == null) {
-				continue;
-			}
-
-			boolean isRequired = false;
-			if (field.getAnnotation(NotNull.class) != null) {
-				isRequired = true;
-			}
-
-			String inputHtml = "<div class='form-group'>"
-					+ "<label class='col-sm-2 control-label'>"
-					+ field.getName() + "</label>" + "<div class='col-sm-10'>"
-					+ "<input type='" + propertyType.type()
-					+ "' class='form-control' name='" + field.getName() + "' ";
-
-			if (isRequired) {
-				inputHtml += "required";
-			}
-
-			inputHtml += " >" + "</div>" + "</div>";
-
-			resultHtml += inputHtml;
-
-		}
-
-		return resultHtml;
-	}
 }

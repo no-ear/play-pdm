@@ -1,5 +1,7 @@
 @()
 
+@import views._
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,7 +105,7 @@
 					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-horizontal" role="form">@Html( Person.generatePropertiesForm() )</div>
+					<div class="form-horizontal" role="form">@Html( UserManagerView.generatePropertiesForm() )</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import models.Person;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -66,4 +65,5 @@ public class UserManagerController extends Controller {
 
 		return ok(jsonNode);
 	}
+
 }
