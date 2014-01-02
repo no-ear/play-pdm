@@ -136,7 +136,14 @@ public final class Person extends Model {
 		return null;
 	}
 
-	public static Person build(Map<String, Object> properties) {
+	/**
+	 * Build new person.
+	 * 
+	 * @param properties
+	 *            build properties
+	 * @return New person object
+	 */
+	public static Person build(final Map<String, Object> properties) {
 
 		Person person = new Person();
 
