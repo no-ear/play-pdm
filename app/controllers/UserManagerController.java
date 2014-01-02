@@ -11,7 +11,7 @@ import views.html.usermanager;
 @Security.Authenticated(Secured.class)
 public class UserManagerController extends Controller {
 	/**
-	 * Index page. Pdm main dashboad.
+	 * Index page. User manager.
 	 * 
 	 * @return Http response
 	 */
