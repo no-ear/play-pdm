@@ -19,7 +19,9 @@ public final class UserManagerView {
 	}
 
 	/**
-	 * Create property form html piece.
+	 * Create property form html piece. <br>
+	 * TODO htmlではなくて必要なデータ構造体の配列かえしてscala側でレンダルできない？<br>
+	 * そのばあいcontrolにおくべき？
 	 * 
 	 * @return html piece
 	 */
