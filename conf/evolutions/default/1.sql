@@ -33,7 +33,6 @@ create table persons (
   salt                      varchar(255),
   title                     varchar(255),
   constraint uq_persons_name unique (name),
-  constraint uq_persons_full_name unique (full_name),
   constraint pk_persons primary key (id))
 ;
 

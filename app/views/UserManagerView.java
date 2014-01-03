@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import javax.validation.constraints.NotNull;
 
 import models.Person;
-import annotation.PropertyType;
+import annotation.PropertyAttribute;
 
 /**
  * usermanager.scala.html support class.
@@ -32,7 +32,7 @@ public final class UserManagerView {
 		Field[] fields = Person.class.getFields();
 
 		for (Field field : fields) {
-			PropertyType propertyType = field.getAnnotation(PropertyType.class);
+			PropertyAttribute propertyType = field.getAnnotation(PropertyAttribute.class);
 			if (propertyType == null) {
 				continue;
 			}
@@ -55,7 +55,6 @@ public final class UserManagerView {
 			inputHtml += " >" + "</div>" + "</div>";
 
 			resultHtml += inputHtml;
-
 		}
 
 		return resultHtml;

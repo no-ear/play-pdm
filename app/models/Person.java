@@ -15,8 +15,15 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import annotation.PropertyType;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import annotation.PropertyAttribute;
+import annotation.PropertyAttribute.InputType;
+import play.api.libs.json.JsValue;
 import play.db.ebean.Model;
+import play.i18n.Messages;
+import play.libs.Json;
 
 /**
  * Person model class.<br>
@@ -35,19 +42,19 @@ public final class Person extends Model {
 	public long id; // SUPPRESS CHECKSTYLE getter/setter create play framework.
 
 	/**
-	 * Login name.<br>
-	 * Require unique.
+	 * User name.<br>
+	 * Require unique. Login Id.
 	 */
 	@Column(unique = true)
 	@NotNull
-	@PropertyType(type = "text")
+	@PropertyAttribute(type = InputType.TEXT, isUpdate = false)
 	public String name; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * User name.
 	 */
-	@Column(unique = true)
-	@PropertyType(type = "text")
+	@Column
+	@PropertyAttribute(type = InputType.TEXT)
 	public String fullName; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -61,24 +68,25 @@ public final class Person extends Model {
 	 */
 	@Column
 	public String salt; // SUPPRESS CHECKSTYLE
+
 	/**
 	 * title.<br>
 	 * e.g. CEO, manager, officer, etc.
 	 */
 	@Column
-	@PropertyType(type = "text")
+	@PropertyAttribute(type = InputType.TEXT)
 	public String title; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * password. property entry.
 	 */
 	@Transient
-	@PropertyType(type = "text")
+	@PropertyAttribute(type = InputType.PASSWORD, isRead = false, isUpdate = false)
 	public String password; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Random seed string length.<br>
-	 * sha256Hex complexity 256^32=1.1579209e+77.<br>
+	 * sha256Hex complexity = 256^32=1.1579209e+77.<br>
 	 * randomAscii generate 95 characters.<br>
 	 * sha256Hex complexity < 95^39=1.3527595e+77
 	 */
@@ -162,5 +170,58 @@ public final class Person extends Model {
 		person.save();
 
 		return person;
+	}
+
+	/**
+	 * Create property attribute data json.
+	 * 
+	 * @return Java json object.
+	 */
+	public static ArrayNode toArrayNodeFromPropertyAttribute() {
+
+		ObjectNode json = Json.newObject();
+		ArrayNode array = json.arrayNode();
+
+		Field[] fields = Person.class.getFields();
+
+		for (Field field : fields) {
+			PropertyAttribute propertyType = field
+					.getAnnotation(PropertyAttribute.class);
+			if (propertyType == null) {
+				continue;
+			}
+
+			boolean isRequired = false;
+			if (field.getAnnotation(NotNull.class) != null) {
+				isRequired = true;
+			}
+
+			ObjectNode jsonObject = Json.newObject();
+
+			jsonObject.put("name", field.getName());
+
+			String message = Messages.get("person." + propertyType.aliasKey());
+			jsonObject.put("displayName", message);
+
+			jsonObject.put("isCreate", propertyType.isCreate());
+			jsonObject.put("isRead", propertyType.isRead());
+			jsonObject.put("isUpdate", propertyType.isUpdate());
+
+			array.add(jsonObject);
+		}
+
+		return array;
+	}
+
+	/**
+	 * Create property attribute data json(Scala).
+	 * 
+	 * @return Scala json object.
+	 */
+	public static JsValue toJsArrayFromPropertyAttribute() {
+
+		ArrayNode jsonObject = toArrayNodeFromPropertyAttribute();
+
+		return play.api.libs.json.Json.parse(jsonObject.toString());
 	}
 }

@@ -1,6 +1,4 @@
-@()
-
-@import views._
+@() @import views._
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +35,14 @@
 <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/underscore.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/backbone.js")"></script>
+
+@* Backbone collection initializer *@
+<script type="text/javascript">
+var PERSON_PROPERTY_ATTRIBUTES_INITIALIZER = @{
+	var jsValue = Person.toJsArrayFromPropertyAttribute();
+	Html(jsValue.toString());
+}
+</script>
 
 @* Backbone model *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/Person.js")"></script>
