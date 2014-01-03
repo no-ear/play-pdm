@@ -1,7 +1,10 @@
 package models;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -16,10 +19,14 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 import play.db.ebean.Model;
 import play.i18n.Messages;
+import play.libs.Json;
 
 /**
  * Person model class.<br>
@@ -215,6 +222,69 @@ public final class Person extends Model {
 		return list.toArray(result);
 	}
 
+	public static ArrayNode toArrayNode(final List<Person> list) {
+		ObjectNode json = Json.newObject();
+		ArrayNode array = json.arrayNode();
+
+		for (Person person : list) {
+			Field[] fields = Person.class.getFields();
+
+			ObjectNode jsonObject = Json.newObject();
+			for (Field field : fields) {
+				PropertyAttribute propertyType = field
+						.getAnnotation(PropertyAttribute.class);
+				if (propertyType == null) {
+					continue;
+				}
+
+				if (propertyType.isRead() == false) {
+					continue;
+				}
+
+				Class<?> type = field.getType();
+
+				if (long.class == type) {
+					long value = 0;
+					try {
+						value = (long) field.get(person);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						// Does not reach because it already checked
+						e.printStackTrace();
+					}
+					jsonObject.put(field.getName(), Long.toString(value));
+				} else if (String.class == type) {
+					String value = null;
+					try {
+						value = (String) field.get(person);
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						// Does not reach because it already checked
+						e.printStackTrace();
+					}
+					jsonObject.put(field.getName(), escapeHtml4(value));
+				}
+			}
+
+			array.add(jsonObject);
+		}
+
+		return array;
+	}
+
+	/**
+	 * Select like input value.
+	 * 
+	 * @param attributeName
+	 *            target attribute.
+	 * @param value
+	 *            like value.
+	 * @return Person list.
+	 */
+	public static List<Person> selectLike(final String attributeName,
+			final String value) {
+		String likeString = value + "%";
+		return find.where().like(attributeName, likeString).findList();
+	}
+
 	/**
 	 * Model field meta info. like struct.
 	 */
@@ -249,4 +319,5 @@ public final class Person extends Model {
 		 */
 		public boolean isRequired; // SUPPRESS CHECKSTYLE
 	}
+
 }

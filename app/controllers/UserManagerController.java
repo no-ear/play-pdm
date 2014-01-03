@@ -2,12 +2,14 @@ package controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import models.Person;
 import models.Person.AttributeDefinition;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.db.ebean.Transactional;
@@ -83,8 +85,15 @@ public class UserManagerController extends Controller {
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result readLike(final String name, final String value) {
+		if (value.equals("") || name.equals("")) {
+			return badRequest();
+		}
 
-		return TODO;
+		List<Person> list = Person.selectLike(name, value);
+
+		ArrayNode jsonNode = Person.toArrayNode(list);
+
+		return ok(jsonNode);
 	}
 
 }
