@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import models.Person;
+import models.Person.AttributeDefinition;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -33,7 +35,11 @@ public class UserManagerController extends Controller {
 	 * @return Http response
 	 */
 	public static Result index() {
-		return ok(usermanager.render());
+
+		AttributeDefinition[] attributeDefinitions = Person
+				.getAttributeDefinitions();
+
+		return ok(usermanager.render(attributeDefinitions));
 	}
 
 	/**

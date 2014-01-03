@@ -1,6 +1,7 @@
 package models;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -15,15 +16,10 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
-import play.api.libs.json.JsValue;
 import play.db.ebean.Model;
 import play.i18n.Messages;
-import play.libs.Json;
 
 /**
  * Person model class.<br>
@@ -173,14 +169,13 @@ public final class Person extends Model {
 	}
 
 	/**
-	 * Create property attribute data json.
+	 * Return Model field definition array.
 	 * 
-	 * @return Java json object.
+	 * @return Model field definition array. Meta data.
 	 */
-	public static ArrayNode toArrayNodeFromPropertyAttribute() {
+	public static AttributeDefinition[] getAttributeDefinitions() {
 
-		ObjectNode json = Json.newObject();
-		ArrayNode array = json.arrayNode();
+		ArrayList<AttributeDefinition> list = new ArrayList<AttributeDefinition>();
 
 		Field[] fields = Person.class.getFields();
 
@@ -196,32 +191,62 @@ public final class Person extends Model {
 				isRequired = true;
 			}
 
-			ObjectNode jsonObject = Json.newObject();
+			AttributeDefinition attributeData = new AttributeDefinition();
 
-			jsonObject.put("name", field.getName());
+			attributeData.name = field.getName();
+			String aliasKey = propertyType.aliasKey();
+			if (!aliasKey.equals("")) {
+				String message = Messages.get("person."
+						+ propertyType.aliasKey());
+				attributeData.displayName = message;
+			} else {
+				attributeData.displayName = null;
+			}
 
-			String message = Messages.get("person." + propertyType.aliasKey());
-			jsonObject.put("displayName", message);
+			attributeData.isCreate = propertyType.isCreate();
+			attributeData.isRead = propertyType.isRead();
+			attributeData.isUpdate = propertyType.isUpdate();
+			attributeData.isRequired = isRequired;
 
-			jsonObject.put("isCreate", propertyType.isCreate());
-			jsonObject.put("isRead", propertyType.isRead());
-			jsonObject.put("isUpdate", propertyType.isUpdate());
-
-			array.add(jsonObject);
+			list.add(attributeData);
 		}
 
-		return array;
+		AttributeDefinition[] result = new AttributeDefinition[list.size()];
+		return list.toArray(result);
 	}
 
 	/**
-	 * Create property attribute data json(Scala).
-	 * 
-	 * @return Scala json object.
+	 * Model field meta info. like struct.
 	 */
-	public static JsValue toJsArrayFromPropertyAttribute() {
+	public static class AttributeDefinition {
+		/**
+		 * field name.
+		 */
+		public String name; // SUPPRESS CHECKSTYLE
 
-		ArrayNode jsonObject = toArrayNodeFromPropertyAttribute();
+		/**
+		 * Display name in view.
+		 */
+		public String displayName; // SUPPRESS CHECKSTYLE
 
-		return play.api.libs.json.Json.parse(jsonObject.toString());
+		/**
+		 * Propertiable create flag.
+		 */
+		public boolean isCreate; // SUPPRESS CHECKSTYLE
+
+		/**
+		 * Propertiable read flag.
+		 */
+		public boolean isRead; // SUPPRESS CHECKSTYLE
+
+		/**
+		 * Propertiable update flag.
+		 */
+		public boolean isUpdate; // SUPPRESS CHECKSTYLE
+
+		/**
+		 * Property require flag.
+		 */
+		public boolean isRequired; // SUPPRESS CHECKSTYLE
 	}
 }

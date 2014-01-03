@@ -1,4 +1,6 @@
-@() @import views._
+@(attributeDefinitions: Array[models.Person.AttributeDefinition]) 
+
+@import views._
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +40,6 @@
 
 @* Backbone collection initializer *@
 <script type="text/javascript">
-var PERSON_PROPERTY_ATTRIBUTES_INITIALIZER = @{
-	var jsValue = Person.toJsArrayFromPropertyAttribute();
-	Html(jsValue.toString());
-}
 </script>
 
 @* Backbone model *@
@@ -84,6 +82,17 @@ var PERSON_PROPERTY_ATTRIBUTES_INITIALIZER = @{
 						</ul></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
+					<select name="name"> 
+					@attributeDefinitions.map { attributeDefinition =>
+						<option>
+						@if(attributeDefinition.displayName == null){
+							@attributeDefinition.name
+						} else {
+							@attributeDefinition.displayName
+						}
+						</option>		 
+					} 
+					</select>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search">
 					</div>
