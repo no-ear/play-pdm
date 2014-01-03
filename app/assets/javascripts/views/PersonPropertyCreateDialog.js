@@ -9,7 +9,7 @@ var PersonPropertyCreateDialog = Backbone.View.extend(
 	/**
 	 * Backbone DOM element.
 	 */
-	el : "#createPersonDialog",
+	el : "#create-person-dialog",
 	/**
 	 * Relate callback function to event on DOM root(el property).
 	 */
@@ -20,7 +20,7 @@ var PersonPropertyCreateDialog = Backbone.View.extend(
 	 * Initialize.
 	 * 
 	 * @param options
-	 *            コンストラクタのoptionsへ渡した値です。
+	 *            Send construct option
 	 */
 	initialize : function(options) {
 		_.bindAll(this, "onSaveSuccess");

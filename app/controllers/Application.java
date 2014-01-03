@@ -29,6 +29,7 @@ public class Application extends Controller {
 	public static Result javascriptRoutes() {
 		response().setContentType("text/javascript");
 		return ok(Routes.javascriptRouter("jsRoutes",
-				controllers.routes.javascript.UserManagerController.create()));
+				controllers.routes.javascript.UserManagerController.create(),
+				controllers.routes.javascript.UserManagerController.readLike()));
 	}
 }

@@ -72,4 +72,19 @@ public class UserManagerController extends Controller {
 		return ok(jsonNode);
 	}
 
+	/**
+	 * Simple search.
+	 * 
+	 * @param name
+	 *            Person attribute name
+	 * @param value
+	 *            Like search value
+	 * @return Http response(Json)
+	 */
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result readLike(final String name, final String value) {
+
+		return TODO;
+	}
+
 }
