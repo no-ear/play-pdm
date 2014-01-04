@@ -31,10 +31,13 @@
 
 @* Underscore template *@
 <script type="text/template" id="person-table-row-template">
-<td><%= get("id") %></td>
-<td><%= get("name") %></td>
-<td><%= get("fullName") %></td>
-<td><%= get("title") %></td>
+@attributeDefinitions.map { attributeDefinition =>
+	@if(attributeDefinition.isRead == true){
+	<td>
+	<%= get("@attributeDefinition.name") %>
+	</td>	
+	}	 
+} 
 </script>
 
 @* JavaScirpt Router *@
@@ -121,10 +124,17 @@
 				<table id="person-table" class="table table-hover">
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>name</th>
-							<th>Full Name</th>
-							<th>Title</th>
+						@attributeDefinitions.map { attributeDefinition =>
+							@if(attributeDefinition.isRead == true){
+							<th>
+							@if(attributeDefinition.displayName == null){
+								@attributeDefinition.name
+							} else {
+								@attributeDefinition.displayName
+							}
+							</th>	
+							}	 
+						} 
 						</tr>
 					</thead>
 					<tbody id="person-table-body">
