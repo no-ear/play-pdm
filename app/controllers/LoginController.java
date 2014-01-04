@@ -1,7 +1,6 @@
 package controllers;
 
 import static play.data.Form.form;
-
 import models.Person;
 import play.data.Form;
 import play.mvc.Controller;
@@ -42,6 +41,16 @@ public class LoginController extends Controller {
 
 			return redirect(routes.Application.index());
 		}
+	}
+
+	/**
+	 * Logout.
+	 * 
+	 * @return Http response
+	 */
+	public static Result logout() {
+		session().clear();
+		return redirect(routes.LoginController.login());
 	}
 
 	/**

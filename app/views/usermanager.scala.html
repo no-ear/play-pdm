@@ -69,13 +69,17 @@
 </head>
 
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="@routes.Application.index">Play PDM</a>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="@routes.Application.index">Play PDM</a>
+		</div>
+
+		<div class="collapse navbar-collapse">
+			<div class="nav navbar-nav navbar-right">
+				<a class="pull-right navbar-text" href="@routes.LoginController.logout()">Logout</a>
 			</div>
 		</div>
-	</div>
+	</nav>
 
 	<div class="container">
 		<!-- Example row of columns -->
