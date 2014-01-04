@@ -49,6 +49,8 @@ var PersonPropertyCreateDialog = Backbone.View.extend(
 			success : this.onSaveSuccess,
 			wait : true
 		});
+		
+		this.$el.modal('hide');
 	},
 	/**
 	 * New person create success callback.
