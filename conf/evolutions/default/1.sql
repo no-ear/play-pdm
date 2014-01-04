@@ -3,18 +3,6 @@
 
 # --- !Ups
 
-create table part_versions (
-  discriminator             varchar(31) not null,
-  id                        bigint auto_increment not null,
-  version                   integer,
-  modify_date               datetime,
-  lifecycle_state_name      varchar(10) not null,
-  part_id                   bigint not null,
-  create_date               datetime not null,
-  constraint ck_part_versions_lifecycle_state_name check (lifecycle_state_name in ('IN_WORK','IN_APPROVE','APPROVED','RELEASED','DISPOSED')),
-  constraint pk_part_versions primary key (id))
-;
-
 create table parts (
   id                        bigint auto_increment not null,
   name                      varchar(255),
@@ -23,6 +11,22 @@ create table parts (
   create_date               datetime not null,
   constraint uq_parts_number unique (number),
   constraint pk_parts primary key (id))
+;
+
+create table part_versions (
+  discriminator             varchar(31) not null,
+  id                        bigint auto_increment not null,
+  version                   integer,
+  modify_date               datetime,
+  lifecycle_state_name      varchar(10) not null,
+  part_id                   bigint not null,
+  create_date               datetime not null,
+  diameter                  double,
+  comment                   varchar(255),
+  width                     double,
+  height                    double,
+  constraint ck_part_versions_lifecycle_state_name check (lifecycle_state_name in ('IN_WORK','IN_APPROVE','APPROVED','RELEASED','DISPOSED')),
+  constraint pk_part_versions primary key (id))
 ;
 
 create table persons (
@@ -45,9 +49,9 @@ create index ix_part_versions_part_1 on part_versions (part_id);
 
 SET FOREIGN_KEY_CHECKS=0;
 
-drop table part_versions;
-
 drop table parts;
+
+drop table part_versions;
 
 drop table persons;
 

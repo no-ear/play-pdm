@@ -1,4 +1,4 @@
-package models;
+package models.partversions;
 
 import java.util.Date;
 
@@ -15,6 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import models.Part;
+import models.Person;
+import annotation.PropertyAttribute;
+import annotation.PropertyAttribute.InputType;
+
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 import play.db.ebean.Model;
@@ -30,13 +35,13 @@ import play.db.ebean.Model;
  * The other two inheritance strategies are considered <br>
  * Enhancement requests and will be introduced in a feature release.<br>
  * =========================<br>
- * So, Subclass cann't use @@Notnull.<br>
+ * So, NOTE that subclass cann't use @@Notnull.
  */
 @Entity
 @Table(name = "part_versions")
 @Inheritance
 @DiscriminatorColumn(name = "discriminator")
-public abstract class AbstractPartVersion extends Model {
+public abstract class PartVersion extends Model {
 
 	/**
 	 * Surrogate key.
@@ -58,6 +63,7 @@ public abstract class AbstractPartVersion extends Model {
 	@Column
 	@NotNull
 	@CreatedTimestamp
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Date createDate; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -65,18 +71,21 @@ public abstract class AbstractPartVersion extends Model {
 	 */
 	@Column
 	@NotNull
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Person createPerson; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Modify date.
 	 */
 	@Column
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Date modifyDate; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Modify user.
 	 */
 	@Column
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Person modifyPerson; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -111,6 +120,7 @@ public abstract class AbstractPartVersion extends Model {
 	@Column
 	@NotNull
 	@Enumerated(EnumType.STRING)
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public LIFECYCLE_STATE_NAME lifecycleStateName = LIFECYCLE_STATE_NAME.IN_WORK; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -124,8 +134,8 @@ public abstract class AbstractPartVersion extends Model {
 	/**
 	 * Finder.
 	 */
-	public static Model.Finder<Long, AbstractPartVersion> find = new Model.Finder<Long, AbstractPartVersion>( // SUPPRESS CHECKSTYLE
-			Long.class, AbstractPartVersion.class);
+	public static Model.Finder<Long, PartVersion> find = new Model.Finder<Long, PartVersion>( // SUPPRESS CHECKSTYLE
+			Long.class, PartVersion.class);
 
 	/**
 	 * Serial Version ID.
@@ -143,8 +153,8 @@ public abstract class AbstractPartVersion extends Model {
 	 *            New create part version property
 	 * @return New PartVersion
 	 */
-	public static AbstractPartVersion buildPartVersion(final Part part,
-			final AbstractPartVersion partVersion) {
+	public static PartVersion buildPartVersion(final Part part,
+			final PartVersion partVersion) {
 
 		part.save();
 

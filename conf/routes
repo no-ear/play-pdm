@@ -20,6 +20,9 @@ POST   /usermanager/person            controllers.UserManagerController.create()
 # DELETE   /usermanager/person/:id      controllers.UserManagerController.delete(id : Long)
 GET    /usermanager/person/readLike   controllers.UserManagerController.readLike(name, value)
 
+# Part manager
+GET    /partmanager                   controllers.PartManagerController.index()
+
 # Javascript
 GET    /assets/javascripts/routes     controllers.Application.javascriptRoutes()
 

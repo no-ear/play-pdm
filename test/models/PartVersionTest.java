@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.persistence.PersistenceException;
 
+import models.partversions.DesignPartVersion;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,9 +47,9 @@ public final class PartVersionTest extends WithApplication {
 		Part part = new Part();
 		part.number = "SCREW-0001";
 
-		PartVersion partVersion = new PartVersion();
+		DesignPartVersion partVersion = new DesignPartVersion();
 
-		PartVersion.buildPartVersion(part, partVersion);
+		DesignPartVersion.buildPartVersion(part, partVersion);
 
 		assertEquals(partVersion.part, part);
 		assertEquals(partVersion.version, 1);
@@ -61,8 +63,8 @@ public final class PartVersionTest extends WithApplication {
 	public void buildPartVersionNumberNull() {
 		Part part = new Part();
 
-		PartVersion partVersion = new PartVersion();
+		DesignPartVersion partVersion = new DesignPartVersion();
 
-		PartVersion.buildPartVersion(part, partVersion);
+		DesignPartVersion.buildPartVersion(part, partVersion);
 	}
 }

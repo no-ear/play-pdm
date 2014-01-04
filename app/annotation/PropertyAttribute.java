@@ -53,4 +53,9 @@ public @interface PropertyAttribute {
 	 * Propertiable on updating Flag.
 	 */
 	boolean isUpdate() default true;
+
+	/**
+	 * Numbering Display priority.
+	 */
+	int priorityNumber() default 0;
 }

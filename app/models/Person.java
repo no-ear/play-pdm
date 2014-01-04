@@ -4,6 +4,7 @@ import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -50,14 +51,14 @@ public final class Person extends Model {
 	 */
 	@Column(unique = true)
 	@NotNull
-	@PropertyAttribute(type = InputType.TEXT, isUpdate = false)
+	@PropertyAttribute(type = InputType.TEXT, isUpdate = false, priorityNumber = 2)
 	public String name; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * User name.
 	 */
 	@Column
-	@PropertyAttribute(type = InputType.TEXT)
+	@PropertyAttribute(type = InputType.TEXT, priorityNumber = 1)
 	public String fullName; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -77,14 +78,14 @@ public final class Person extends Model {
 	 * e.g. CEO, manager, officer, etc.
 	 */
 	@Column
-	@PropertyAttribute(type = InputType.TEXT)
+	@PropertyAttribute(type = InputType.TEXT, priorityNumber = 3)
 	public String title; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * password. property entry.
 	 */
 	@Transient
-	@PropertyAttribute(type = InputType.PASSWORD, isRead = false, isUpdate = false)
+	@PropertyAttribute(type = InputType.PASSWORD, isRead = false, isUpdate = false, priorityNumber = 4)
 	public String password; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -214,9 +215,12 @@ public final class Person extends Model {
 			attributeData.isRead = propertyType.isRead();
 			attributeData.isUpdate = propertyType.isUpdate();
 			attributeData.isRequired = isRequired;
+			attributeData.priorityNumber = propertyType.priorityNumber();
 
 			list.add(attributeData);
 		}
+
+		Collections.sort(list);
 
 		AttributeDefinition[] result = new AttributeDefinition[list.size()];
 		return list.toArray(result);
@@ -299,7 +303,8 @@ public final class Person extends Model {
 	/**
 	 * Model field meta info. like struct.
 	 */
-	public static class AttributeDefinition {
+	public static final class AttributeDefinition implements
+			Comparable<AttributeDefinition> {
 		/**
 		 * field name.
 		 */
@@ -329,6 +334,24 @@ public final class Person extends Model {
 		 * Property require flag.
 		 */
 		public boolean isRequired; // SUPPRESS CHECKSTYLE
+
+		/**
+		 * Numbering Display priority.
+		 */
+		public int priorityNumber; // SUPPRESS CHECKSTYLE
+
+		@Override
+		public int compareTo(final AttributeDefinition obj) {
+			AttributeDefinition operand = (AttributeDefinition) obj;
+
+			if (this.priorityNumber < operand.priorityNumber) {
+				return -1;
+			} else if (this.priorityNumber > operand.priorityNumber) {
+				return 1;
+			}
+
+			return 0;
+		}
 	}
 
 }
