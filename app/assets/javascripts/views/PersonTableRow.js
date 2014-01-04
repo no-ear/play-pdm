@@ -7,6 +7,10 @@ var PersonTableRow = Backbone.View.extend(
 /** @lends PersonTableRow# */
 {
 	/**
+	 * Be used to build the view "el" property.
+	 */
+	tagName : "tr",
+	/**
 	 * Underscore template.
 	 */
 	template : _.template($('#person-table-row-template').html()),

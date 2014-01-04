@@ -13,7 +13,7 @@ var PersonTable = CollectionView.extend(
 	/**
 	 * Backbone DOM element.
 	 */
-	el : '#person-table',
+	el : '#person-table-body',
 	/**
 	 * Create view of each model.
 	 * 

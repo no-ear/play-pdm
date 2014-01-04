@@ -31,12 +31,10 @@
 
 @* Underscore template *@
 <script type="text/template" id="person-table-row-template">
-<tr>
-	<td><%= get("id") %></td>
-	<td><%= get("name") %></td>
-	<td><%= get("fullName") %></td>
-	<td><%= get("title") %></td>
-</tr>
+<td><%= get("id") %></td>
+<td><%= get("name") %></td>
+<td><%= get("fullName") %></td>
+<td><%= get("title") %></td>
 </script>
 
 @* JavaScirpt Router *@
@@ -121,6 +119,16 @@
 		<div class="row">
 			<div class="col-md-12">
 				<table id="person-table" class="table table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>name</th>
+							<th>Full Name</th>
+							<th>Title</th>
+						</tr>
+					</thead>
+					<tbody id="person-table-body">
+					</tbody>
 				</table>
 			</div>
 		</div>
