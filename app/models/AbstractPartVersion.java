@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -31,7 +30,7 @@ import play.db.ebean.Model;
  * The other two inheritance strategies are considered <br>
  * Enhancement requests and will be introduced in a feature release.<br>
  * =========================<br>
- * So, Subclass don't use @@Notnull.<br>
+ * So, Subclass cann't use @@Notnull.<br>
  */
 @Entity
 @Table(name = "part_versions")
@@ -62,10 +61,23 @@ public abstract class AbstractPartVersion extends Model {
 	public Date createDate; // SUPPRESS CHECKSTYLE
 
 	/**
+	 * Create user.
+	 */
+	@Column
+	@NotNull
+	public Person createPerson; // SUPPRESS CHECKSTYLE
+
+	/**
 	 * Modify date.
 	 */
 	@Column
 	public Date modifyDate; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Modify user.
+	 */
+	@Column
+	public Person modifyPerson; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Lifecycle state const value set.

@@ -1,6 +1,4 @@
-@(attributeDefinitions: Array[models.Person.AttributeDefinition]) 
-
-@import views._
+@() 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +10,7 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
 
-<title>Play PDM User manager</title>
+<title>Play PDM Part manager</title>
 
 <!-- Bootstrap core CSS -->
 <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
@@ -30,14 +28,7 @@
     <![endif]-->
 
 @* Underscore template *@
-<script type="text/template" id="person-table-row-template">
-@attributeDefinitions.map { attributeDefinition =>
-	@if(attributeDefinition.isRead == true){
-	<td>
-	<%= get("@attributeDefinition.name") %>
-	</td>	
-	}	 
-} 
+<script type="text/template" id="part-table-row-template">
 </script>
 
 @* JavaScirpt Router *@
@@ -50,21 +41,15 @@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/backbone.js")"></script>
 
 @* Backbone model *@
-<script type="text/javascript" src="@routes.Assets.at("javascripts/models/Person.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/models/Persons.js")"></script>
 
 @* Grobal models, like database tables. *@
-<script type="text/javascript" src="@routes.Assets.at("javascripts/usermanagermodels.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagermodels.js")"></script>
 
 @* Backbone view *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/CollectionView.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PersonPropertyCreateDialog.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PersonTable.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PersonTableRow.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("javascripts/views/SimpleSearchForm.js")"></script>
 
 @* main *@
-<script type="text/javascript" src="@routes.Assets.at("javascripts/usermanagerviews.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagerviews.js")"></script>
 
 </head>
 
@@ -97,22 +82,11 @@
 				<ul class="nav navbar-nav">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Edit <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a data-toggle="modal" data-target="#create-person-dialog">Create User</a></li>
+							<li><a data-toggle="modal" data-target="#create-part-dialog">Create Part</a></li>
 						</ul></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search" id="simple-search">
 					<select name="name"> 
-					@attributeDefinitions.map { attributeDefinition =>
-						@if(attributeDefinition.isRead == true){
-							<option value="@attributeDefinition.name">
-							@if(attributeDefinition.displayName == null){
-								@attributeDefinition.name
-							} else {
-								@attributeDefinition.displayName
-							}
-							</option>	
-						}	 
-					} 
 					</select>
 					<div class="form-group">
 						<input type="text" name="value" class="form-control" placeholder="Search">
@@ -125,23 +99,12 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<class="table table-hover">
+				<table class="table table-hover">
 					<thead>
 						<tr>
-						@attributeDefinitions.map { attributeDefinition =>
-							@if(attributeDefinition.isRead == true){
-							<th>
-							@if(attributeDefinition.displayName == null){
-								@attributeDefinition.name
-							} else {
-								@attributeDefinition.displayName
-							}
-							</th>	
-							}	 
-						} 
 						</tr>
 					</thead>
-					<tbody id="person-table-body">
+					<tbody id="part-table-body">
 					</tbody>
 				</table>
 			</div>
@@ -155,7 +118,7 @@
 	</div>
 
 	<!-- Modal -->
-	<form class="modal fade" id="create-person-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+	<form class="modal fade" id="create-part-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 		aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -164,7 +127,7 @@
 					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-horizontal" role="form">@Html( UserManagerView.generatePropertiesForm() )</div>
+					<div class="form-horizontal" role="form"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

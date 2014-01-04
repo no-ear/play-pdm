@@ -25,11 +25,11 @@ import views.html.usermanager;
  */
 @Security.Authenticated(Secured.class)
 public class UserManagerController extends Controller {
-	/**
-	 * Return no update to backbone model. <br>
-	 * NOTE: Return ok() is strange behaivior. This problem that error log does not output.
-	 */
-	public static final Result OK_NOT_UPDATE_JSON = ok("{}");
+	// /**
+	// * Return no update to backbone model. <br>
+	// * NOTE: Return ok() is strange behaivior. This problem that error log does not output.
+	// */
+	// private static final Result OK_NOT_UPDATE_JSON = ok("{}");
 
 	/**
 	 * Index page. User manager.

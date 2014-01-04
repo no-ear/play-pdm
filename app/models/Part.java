@@ -44,10 +44,23 @@ public final class Part extends Model {
 	public Date createDate; // SUPPRESS CHECKSTYLE
 
 	/**
+	 * Create user.
+	 */
+	@Column
+	@NotNull
+	public Person createPerson; // SUPPRESS CHECKSTYLE
+
+	/**
 	 * Modify date.
 	 */
 	@Column
 	public Date modifyDate; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Modify user.
+	 */
+	@Column
+	public Person modifyPerson; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Part number.
