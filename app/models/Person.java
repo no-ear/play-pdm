@@ -222,6 +222,14 @@ public final class Person extends Model {
 		return list.toArray(result);
 	}
 
+	/**
+	 * Convert person list to json. <br>
+	 * TODO これもどうなの？ここ？
+	 * 
+	 * @param list
+	 *            Person array list.
+	 * @return Person json data.
+	 */
 	public static ArrayNode toArrayNode(final List<Person> list) {
 		ObjectNode json = Json.newObject();
 		ArrayNode array = json.arrayNode();
@@ -237,7 +245,7 @@ public final class Person extends Model {
 					continue;
 				}
 
-				if (propertyType.isRead() == false) {
+				if (!propertyType.isRead()) {
 					continue;
 				}
 
@@ -263,6 +271,9 @@ public final class Person extends Model {
 					jsonObject.put(field.getName(), escapeHtml4(value));
 				}
 			}
+
+			// Set id always.
+			jsonObject.put("id", Long.toString(person.id));
 
 			array.add(jsonObject);
 		}

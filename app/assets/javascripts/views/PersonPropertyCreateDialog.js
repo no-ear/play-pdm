@@ -59,6 +59,6 @@ var PersonPropertyCreateDialog = Backbone.View.extend(
 	 *            response
 	 */
 	onSaveSuccess : function(model, response) {
-		// TODO Add user collection.
+		persons.add(model);
 	}
 });

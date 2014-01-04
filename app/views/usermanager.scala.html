@@ -29,6 +29,16 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
+@* Underscore template *@
+<script type="text/template" id="person-table-row-template">
+<tr>
+	<td><%= get("id") %></td>
+	<td><%= get("name") %></td>
+	<td><%= get("fullName") %></td>
+	<td><%= get("title") %></td>
+</tr>
+</script>
+
 @* JavaScirpt Router *@
 <script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
 
@@ -38,19 +48,22 @@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/underscore.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/backbone.js")"></script>
 
-@* Backbone collection initializer *@
-<script type="text/javascript">
-</script>
-
 @* Backbone model *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/Person.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/Persons.js")"></script>
+
+@* Grobal models, like database tables. *@
+<script type="text/javascript" src="@routes.Assets.at("javascripts/usermanagermodels.js")"></script>
 
 @* Backbone view *@
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/CollectionView.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PersonPropertyCreateDialog.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PersonTable.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PersonTableRow.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/SimpleSearchForm.js")"></script>
 
 @* main *@
-<script type="text/javascript" src="@routes.Assets.at("javascripts/usermanager.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/usermanagerviews.js")"></script>
 
 </head>
 
@@ -107,7 +120,7 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-hover">
+				<table id="person-table" class="table table-hover">
 				</table>
 			</div>
 		</div>

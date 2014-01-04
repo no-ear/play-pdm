@@ -43,6 +43,6 @@ var SimpleSearchForm = Backbone.View.extend(
 	 *            data type
 	 */
 	onSuccess : function(data, dataType) {
-		// TODO
+		persons.reset(data);
 	}
 });

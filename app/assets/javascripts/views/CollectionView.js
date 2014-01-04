@@ -89,7 +89,7 @@ var CollectionView = Backbone.View.extend(
 			} else {
 				// appendかprependかはビューによって異なる。
 				// あまりないことだけど要素の同階層に他の要素があった場合の挙動に関わる。
-				// デフォルトでは他の管理外の要素は上に出る。
+				// デフォルトでは他の管理外の要素は上に出る。Tableの場合thタグがあるのでこれが正しいような気がする。
 				if (this.isAppend) {
 					this.$el.append(subView.render().el);
 				} else {
