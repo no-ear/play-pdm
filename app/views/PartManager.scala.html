@@ -1,4 +1,9 @@
-@() 
+@(classArray: Array[java.lang.Class[_]])
+
+@import play.api.libs.json.Json; 
+@import play.api.libs.json.JsValue; 
+@import scala.collection.mutable.Buffer; 
+@import scala.collection.immutable.Map; 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,9 +45,26 @@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/underscore.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/backbone.js")"></script>
 
-@* Backbone model *@
+@* Backbone collection Initializer *@
+<script type="text/javascript">
+var CLASS_TYPE_INITIALIZER = @{
+	val jsonObjectBuffer = Buffer[JsValue]();
 
-@* Grobal models, like database tables. *@
+	classArray.map{ classObject => 
+		jsonObjectBuffer += Json.toJson(
+			Map[String, JsValue](
+				"name" -> Json.toJson(classObject.getName()),
+				"displayName" -> Json.toJson(classObject.getName())
+			)
+		);
+	}
+
+	val myTagJsonList = Json.toJson(jsonObjectBuffer);
+	Html(myTagJsonList.toString());	
+};
+</script>
+
+@* Backbone model *@ @* Grobal models, like database tables. *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagermodels.js")"></script>
 
 @* Backbone view *@
@@ -86,7 +108,7 @@
 						</ul></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search" id="simple-search">
-					<select name="name"> 
+					<select name="name">
 					</select>
 					<div class="form-group">
 						<input type="text" name="value" class="form-control" placeholder="Search">
@@ -98,7 +120,13 @@
 		</nav>
 
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-2">
+				<table class="table table-hover">
+					<tbody id="class-table-body">
+					</tbody>
+				</table>
+			</div>
+			<div class="col-md-10">
 				<table class="table table-hover">
 					<thead>
 						<tr>
