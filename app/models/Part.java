@@ -1,5 +1,8 @@
 package models;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import annotation.PropertyAttribute;
+
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 import play.db.ebean.Model;
+import play.i18n.Messages;
 
 /**
  * Part model class.
@@ -79,5 +85,4 @@ public final class Part extends Model {
 	 * Serial Version ID.
 	 */
 	private static final long serialVersionUID = -7556779886341618589L;
-
 }

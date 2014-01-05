@@ -177,56 +177,6 @@ public final class Person extends Model {
 	}
 
 	/**
-	 * Return Model field definition array.
-	 * 
-	 * @return Model field definition array. Meta data.
-	 */
-	public static AttributeDefinition[] getAttributeDefinitions() {
-
-		ArrayList<AttributeDefinition> list = new ArrayList<AttributeDefinition>();
-
-		Field[] fields = Person.class.getFields();
-
-		for (Field field : fields) {
-			PropertyAttribute propertyType = field
-					.getAnnotation(PropertyAttribute.class);
-			if (propertyType == null) {
-				continue;
-			}
-
-			boolean isRequired = false;
-			if (field.getAnnotation(NotNull.class) != null) {
-				isRequired = true;
-			}
-
-			AttributeDefinition attributeData = new AttributeDefinition();
-
-			attributeData.name = field.getName();
-			String aliasKey = propertyType.aliasKey();
-			if (!aliasKey.equals("")) {
-				String message = Messages.get("person."
-						+ propertyType.aliasKey());
-				attributeData.displayName = message;
-			} else {
-				attributeData.displayName = null;
-			}
-
-			attributeData.isCreate = propertyType.isCreate();
-			attributeData.isRead = propertyType.isRead();
-			attributeData.isUpdate = propertyType.isUpdate();
-			attributeData.isRequired = isRequired;
-			attributeData.priorityNumber = propertyType.priorityNumber();
-
-			list.add(attributeData);
-		}
-
-		Collections.sort(list);
-
-		AttributeDefinition[] result = new AttributeDefinition[list.size()];
-		return list.toArray(result);
-	}
-
-	/**
 	 * Convert person list to json. <br>
 	 * TODO これもどうなの？ここ？
 	 * 

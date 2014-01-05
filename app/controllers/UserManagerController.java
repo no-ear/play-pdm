@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +39,9 @@ public class UserManagerController extends Controller {
 	 */
 	public static Result index() {
 
-		AttributeDefinition[] attributeDefinitions = Person
-				.getAttributeDefinitions();
+		Field[] fields = Person.class.getFields();
+		AttributeDefinition[] attributeDefinitions = AttributeDefinition
+				.getAttributeDefinitions(fields);
 
 		return ok(usermanager.render(attributeDefinitions));
 	}
