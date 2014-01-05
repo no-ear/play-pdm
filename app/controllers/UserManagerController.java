@@ -19,7 +19,7 @@ import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.usermanager;
+import views.html.UserManager;
 
 /**
  * User manager controller class.
@@ -43,7 +43,7 @@ public class UserManagerController extends Controller {
 		AttributeDefinition[] attributeDefinitions = AttributeDefinition
 				.getAttributeDefinitions(fields);
 
-		return ok(usermanager.render(attributeDefinitions));
+		return ok(UserManager.render(attributeDefinitions));
 	}
 
 	/**

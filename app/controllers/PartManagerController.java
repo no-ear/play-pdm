@@ -3,7 +3,7 @@ package controllers;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.partmanager;
+import views.html.PartManager;
 
 /**
  * Part manager controller class.
@@ -16,6 +16,6 @@ public class PartManagerController extends Controller {
 	 * @return Http response
 	 */
 	public static Result index() {
-		return ok(partmanager.render());
+		return ok(PartManager.render());
 	}
 };

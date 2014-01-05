@@ -3,7 +3,7 @@ package controllers;
 import play.Routes;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
+import views.html.Index;
 import play.mvc.Security;
 
 /**
@@ -18,7 +18,7 @@ public class Application extends Controller {
 	 * @return Http response
 	 */
 	public static Result index() {
-		return ok(index.render());
+		return ok(Index.render());
 	}
 
 	/**

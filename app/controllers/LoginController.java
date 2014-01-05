@@ -5,7 +5,7 @@ import models.Person;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.signin;
+import views.html.SignIn;
 
 /**
  * Login/Logout session controller class.
@@ -17,7 +17,7 @@ public class LoginController extends Controller {
 	 * @return Http response
 	 */
 	public static Result login() {
-		return ok(signin.render());
+		return ok(SignIn.render());
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class LoginController extends Controller {
 		Person person = Person.authenticate(loginUser.name, loginUser.password);
 
 		if (person == null) {
-			return badRequest(signin.render());
+			return badRequest(SignIn.render());
 		} else {
 			session().clear();
 			session("name", person.name);
