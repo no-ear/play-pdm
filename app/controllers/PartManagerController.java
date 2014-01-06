@@ -1,9 +1,14 @@
 package controllers;
 
+import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
+
 import annotation.ClassEntityAttribute;
+import models.AttributeDefinition;
+import models.Person;
 import models.partversions.BoltPartVersion;
 import models.partversions.FramePartVersion;
 import play.i18n.Messages;
@@ -53,7 +58,14 @@ public class PartManagerController extends Controller {
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result getPartIndex(final String name) {
-		return TODO;
+
+		Field[] fields = entityClassMap.get(name).classType.getFields();
+		AttributeDefinition[] attributeDefinitions = AttributeDefinition
+				.getAttributeDefinitions(fields);
+
+		ArrayNode jsonNode = AttributeDefinition
+				.toArrayNode(attributeDefinitions);
+		return ok(jsonNode);
 	}
 
 	/**

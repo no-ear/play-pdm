@@ -6,7 +6,12 @@ import java.util.Collections;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import play.i18n.Messages;
+import play.libs.Json;
 import annotation.PropertyAttribute;
 
 /**
@@ -58,7 +63,7 @@ public final class AttributeDefinition implements
 	public AttributeDefinition(final Field field) {
 
 		name = field.getName();
-		
+
 		PropertyAttribute propertyType = field
 				.getAnnotation(PropertyAttribute.class);
 		String aliasKey = propertyType.aliasKey();
@@ -123,4 +128,43 @@ public final class AttributeDefinition implements
 		AttributeDefinition[] result = new AttributeDefinition[list.size()];
 		return list.toArray(result);
 	}
+
+	/**
+	 * To Json ArrayNode From AttributeDefinition array.
+	 * 
+	 * @param attributeDefinitions
+	 *            Class attribute definition array
+	 * @return Json(Java) array.
+	 */
+	public static ArrayNode toArrayNode(
+			final AttributeDefinition[] attributeDefinitions) {
+		ObjectNode json = Json.newObject();
+		ArrayNode array = json.arrayNode();
+
+		for (AttributeDefinition attr : attributeDefinitions) {
+			array.add(attr.toJsonNode());
+		}
+
+		return array;
+	}
+
+	/**
+	 * Convert to Json(Java).
+	 * 
+	 * @return Json(Java)
+	 */
+	private JsonNode toJsonNode() {
+		ObjectNode jsonObject = Json.newObject();
+
+		jsonObject.put("name", name);
+		jsonObject.put("displayName", displayName);
+		jsonObject.put("isCreate", isCreate);
+		jsonObject.put("isRead", isRead);
+		jsonObject.put("isUpdate", isUpdate);
+		jsonObject.put("isRequired", isRequired);
+		jsonObject.put("priorityNumber", priorityNumber);
+
+		return jsonObject;
+	}
+
 }
