@@ -56,10 +56,11 @@ public final class AttributeDefinition implements
 	 *            Class field
 	 */
 	public AttributeDefinition(final Field field) {
-		PropertyAttribute propertyType = field
-				.getAnnotation(PropertyAttribute.class);
 
 		name = field.getName();
+		
+		PropertyAttribute propertyType = field
+				.getAnnotation(PropertyAttribute.class);
 		String aliasKey = propertyType.aliasKey();
 		if (!aliasKey.equals("")) {
 			String message = Messages.get("person." + propertyType.aliasKey());

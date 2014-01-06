@@ -3,6 +3,8 @@ package models.partversions;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import annotation.ClassEntityAttribute;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 import play.db.ebean.Model;
@@ -12,6 +14,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @DiscriminatorValue("BOLT_PART_VERSION")
+@ClassEntityAttribute()
 public class BoltPartVersion extends DesignPartVersion {
 
 	/**

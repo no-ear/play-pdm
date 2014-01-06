@@ -22,6 +22,7 @@ GET    /usermanager/person/readLike   controllers.UserManagerController.readLike
 
 # Part manager
 GET    /partmanager                   controllers.PartManagerController.index()
+GET    /partmanager/getPartIndex      controllers.PartManagerController.getPartIndex(className)
 
 # Javascript
 GET    /assets/javascripts/routes     controllers.Application.javascriptRoutes()

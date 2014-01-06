@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import annotation.ClassEntityAttribute;
 import play.db.ebean.Model;
 
 /**
@@ -11,6 +12,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @DiscriminatorValue("FRAME_PART_VERSION")
+@ClassEntityAttribute()
 public class FramePartVersion extends DesignPartVersion {
 
 	/**
@@ -18,7 +20,7 @@ public class FramePartVersion extends DesignPartVersion {
 	 */
 	@Column
 	public double width; // SUPPRESS CHECKSTYLE
-	
+
 	/**
 	 * Example unique attribute.
 	 */

@@ -1,4 +1,4 @@
-@(classArray: Array[java.lang.Class[_]])
+@(classArray: Map[String, controllers.PartManagerController.ClassDefinition])
 
 @import play.api.libs.json.Json; 
 @import play.api.libs.json.JsValue; 
@@ -34,6 +34,9 @@
 
 @* Underscore template *@
 <script type="text/template" id="part-table-row-template">
+<td>
+<%= get("name") %>
+</td>
 </script>
 
 @* JavaScirpt Router *@
@@ -50,11 +53,11 @@
 var CLASS_TYPE_INITIALIZER = @{
 	val jsonObjectBuffer = Buffer[JsValue]();
 
-	classArray.map{ classObject => 
+	classArray.map{ case (key, value) => 
 		jsonObjectBuffer += Json.toJson(
 			Map[String, JsValue](
-				"name" -> Json.toJson(classObject.getName()),
-				"displayName" -> Json.toJson(classObject.getName())
+				"name" -> Json.toJson(value.name),
+				"displayName" -> Json.toJson(value.name)
 			)
 		);
 	}
@@ -64,11 +67,17 @@ var CLASS_TYPE_INITIALIZER = @{
 };
 </script>
 
-@* Backbone model *@ @* Grobal models, like database tables. *@
+@* Backbone model *@
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartClassType.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartClassTypes.js")"></script>
+
+@* Grobal models, like database tables. *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagermodels.js")"></script>
 
 @* Backbone view *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/CollectionView.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTable.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTableRow.js")"></script>
 
 @* main *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagerviews.js")"></script>
