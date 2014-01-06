@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import annotation.ClassEntityAttribute;
 import models.AttributeDefinition;
-import models.Person;
 import models.partversions.BoltPartVersion;
 import models.partversions.FramePartVersion;
 import play.i18n.Messages;

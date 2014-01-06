@@ -1,19 +1,15 @@
 /**
- * Person table row view.
+ * Part class selectable row view.
  * 
- * @class PersonTableRow
+ * @class PartTableHeaderData
  */
-var PersonTableRow = Backbone.View.extend(
-/** @lends PersonTableRow# */
+var PartTableHeaderData = Backbone.View.extend(
+/** @lends PartTableHeaderData# */
 {
 	/**
 	 * Be used to build the view "el" property.
 	 */
-	tagName : "tr",
-	/**
-	 * Underscore template.
-	 */
-	template : _.template($('#person-table-row-template').html()),
+	tagName : "td",
 	/**
 	 * Renders the view template from model data, and updates this.el with the
 	 * new HTML.
@@ -22,8 +18,7 @@ var PersonTableRow = Backbone.View.extend(
 	 *         enable chained calls.
 	 */
 	render : function() {
-		var template = this.template(this.model);
-		this.$el.html(template);
+		this.$el.append(this.model.get("name"));
 		return this;
 	}
 });

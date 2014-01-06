@@ -43,5 +43,16 @@ var ClassTableRow = Backbone.View.extend(
 			success : this.onSuccess,
 			context : this
 		});
+	},
+	/**
+	 * Success search callback function.
+	 * 
+	 * @param data
+	 *            responce data
+	 * @param dataType
+	 *            data type
+	 */
+	onSuccess : function(data, dataType) {
+		attributeDefinitions.reset(data);
 	}
 });

@@ -68,6 +68,8 @@ var CLASS_TYPE_INITIALIZER = @{
 </script>
 
 @* Backbone model *@
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/AttributeDefinition.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/AttributeDefinitions.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartClassType.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartClassTypes.js")"></script>
 
@@ -78,6 +80,8 @@ var CLASS_TYPE_INITIALIZER = @{
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/CollectionView.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTable.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTableRow.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeaderData.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeader.js")"></script>
 
 @* main *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagerviews.js")"></script>
@@ -135,9 +139,12 @@ var CLASS_TYPE_INITIALIZER = @{
 					</tbody>
 				</table>
 			</div>
+			
 			<div class="col-md-10">
 				<table class="table table-hover">
-					<thead id="part-table-header">
+					<thead>
+						<tr id="part-table-header">
+						</tr>
 					</thead>
 					<tbody id="part-table-body">
 					</tbody>
