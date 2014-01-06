@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import annotation.ClassEntityAttribute;
 import models.AttributeDefinition;
+import models.Part;
 import models.partversions.BoltPartVersion;
 import models.partversions.FramePartVersion;
 import play.i18n.Messages;
@@ -45,7 +46,11 @@ public class PartManagerController extends Controller {
 	 * @return Http response
 	 */
 	public static Result index() {
-		return ok(PartManager.render(entityClassMap));
+		Field[] fields = Part.class.getFields();
+		AttributeDefinition[] partAttributeDefinitions = AttributeDefinition
+				.getAttributeDefinitions(fields);
+
+		return ok(PartManager.render(entityClassMap, partAttributeDefinitions));
 	}
 
 	/**

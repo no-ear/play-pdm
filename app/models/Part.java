@@ -1,8 +1,5 @@
 package models;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,11 +11,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import annotation.PropertyAttribute;
+import annotation.PropertyAttribute.InputType;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 import play.db.ebean.Model;
-import play.i18n.Messages;
 
 /**
  * Part model class.
@@ -47,6 +44,7 @@ public final class Part extends Model {
 	@Column
 	@NotNull
 	@CreatedTimestamp
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Date createDate; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -54,18 +52,21 @@ public final class Part extends Model {
 	 */
 	@Column
 	@NotNull
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Person createPerson; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Modify date.
 	 */
 	@Column
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Date modifyDate; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Modify user.
 	 */
 	@Column
+	@PropertyAttribute(type = InputType.TEXT, isCreate = false, isUpdate = false)
 	public Person modifyPerson; // SUPPRESS CHECKSTYLE
 
 	/**
@@ -73,6 +74,7 @@ public final class Part extends Model {
 	 */
 	@Column(unique = true)
 	@NotNull
+	@PropertyAttribute(type = InputType.TEXT, isUpdate = false)
 	public String number; // SUPPRESS CHECKSTYLE
 
 	/**

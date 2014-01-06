@@ -55,6 +55,7 @@ public abstract class PartVersion extends Model {
 	 * Version number.
 	 */
 	@Column
+	@PropertyAttribute(type = InputType.TEXT, isRead = false)
 	public int version; // SUPPRESS CHECKSTYLE
 
 	/**

@@ -1,4 +1,4 @@
-@(classArray: Map[String, controllers.PartManagerController.ClassDefinition])
+@(classArray: Map[String, controllers.PartManagerController.ClassDefinition], partAttributeDefinitions: Array[AttributeDefinition])
 
 @import play.api.libs.json.Json; 
 @import play.api.libs.json.JsValue; 
@@ -21,7 +21,7 @@
 <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="@routes.Assets.at("stylesheets/index.css")" rel="stylesheet">
+<link href="@routes.Assets.at("stylesheets/partmanager.css")" rel="stylesheet">
 
 <!-- Just for debugging purposes. Don't actually copy this line! -->
 <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -64,6 +64,11 @@ var CLASS_TYPE_INITIALIZER = @{
 
 	val myTagJsonList = Json.toJson(jsonObjectBuffer);
 	Html(myTagJsonList.toString());	
+};
+
+var PART_ATTRIBUTE_DEFINITION_INITIALIZER = @{
+	var jsValue = AttributeDefinition.toJsArray(partAttributeDefinitions);
+	Html(jsValue.toString());
 };
 </script>
 
@@ -133,13 +138,11 @@ var CLASS_TYPE_INITIALIZER = @{
 		</nav>
 
 		<div class="row">
-			<div class="col-md-2">
-				<div style="overflow-x: scroll;">
-					<table class="table table-hover">
-						<tbody id="class-table-body">
-						</tbody>
-					</table>
-				</div>
+			<div class="col-md-2" id="class-select-table">
+				<table class="table table-hover">
+					<tbody id="class-table-body">
+					</tbody>
+				</table>
 			</div>
 
 			<div class="col-md-10">

@@ -3,6 +3,7 @@ package models;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import play.api.libs.json.JsValue;
 import play.i18n.Messages;
 import play.libs.Json;
 import annotation.PropertyAttribute;
@@ -165,6 +167,21 @@ public final class AttributeDefinition implements
 		jsonObject.put("priorityNumber", priorityNumber);
 
 		return jsonObject;
+	}
+
+	/**
+	 * To JsValue(Json for Scala) From AttributeDefinition array.
+	 * 
+	 * @param attributeDefinitions
+	 *            Class field attribute definition array
+	 * @return Json(Scala)
+	 */
+	public static JsValue toJsArray(
+			final AttributeDefinition[] attributeDefinitions) {
+
+		ArrayNode jsonObject = toArrayNode(attributeDefinitions);
+
+		return play.api.libs.json.Json.parse(jsonObject.toString());
 	}
 
 }
