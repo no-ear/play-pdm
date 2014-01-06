@@ -1,4 +1,4 @@
-@(classArray: Map[String, controllers.PartManagerController.ClassDefinition], partAttributeDefinitions: Array[AttributeDefinition])
+@(classArray: Map[String, controllers.PartManagerController.ClassDefinition])
 
 @import play.api.libs.json.Json; 
 @import play.api.libs.json.JsValue; 
@@ -64,11 +64,6 @@ var CLASS_TYPE_INITIALIZER = @{
 
 	val myTagJsonList = Json.toJson(jsonObjectBuffer);
 	Html(myTagJsonList.toString());	
-};
-
-var PART_ATTRIBUTE_DEFINITION_INITIALIZER = @{
-	var jsValue = AttributeDefinition.toJsArray(partAttributeDefinitions);
-	Html(jsValue.toString());
 };
 </script>
 

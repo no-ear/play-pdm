@@ -1,6 +1,8 @@
 package controllers;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -46,11 +48,7 @@ public class PartManagerController extends Controller {
 	 * @return Http response
 	 */
 	public static Result index() {
-		Field[] fields = Part.class.getFields();
-		AttributeDefinition[] partAttributeDefinitions = AttributeDefinition
-				.getAttributeDefinitions(fields);
-
-		return ok(PartManager.render(entityClassMap, partAttributeDefinitions));
+		return ok(PartManager.render(entityClassMap));
 	}
 
 	/**
@@ -62,13 +60,28 @@ public class PartManagerController extends Controller {
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result getPartIndex(final String name) {
+		Field[] partFields = Part.class.getFields();
+		AttributeDefinition[] partAttributeDefinitions = AttributeDefinition
+				.getAttributeDefinitions(partFields);
 
-		Field[] fields = entityClassMap.get(name).classType.getFields();
+		List<AttributeDefinition> attributeDefinitionList = new ArrayList<AttributeDefinition>();
+		for (AttributeDefinition attr : partAttributeDefinitions) {
+			attributeDefinitionList.add(attr);
+		}
+
+		Field[] partVersionFields = entityClassMap.get(name).classType
+				.getFields();
 		AttributeDefinition[] attributeDefinitions = AttributeDefinition
-				.getAttributeDefinitions(fields);
+				.getAttributeDefinitions(partVersionFields);
+		for (AttributeDefinition attr : attributeDefinitions) {
+			attributeDefinitionList.add(attr);
+		}
 
-		ArrayNode jsonNode = AttributeDefinition
-				.toArrayNode(attributeDefinitions);
+		AttributeDefinition[] array = new AttributeDefinition[attributeDefinitionList
+				.size()];
+		attributeDefinitionList.toArray(array);
+
+		ArrayNode jsonNode = AttributeDefinition.toArrayNode(array);
 		return ok(jsonNode);
 	}
 
