@@ -111,6 +111,7 @@ public final class AttributeDefinition implements
 	/**
 	 * Create class AttributeDefinition Array.
 	 * 
+	 * @param def Class meta informations
 	 * @param fields
 	 *            Class field informations
 	 * @return AttributeDefinition Array

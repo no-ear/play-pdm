@@ -39,6 +39,18 @@
 </td>
 </script>
 
+<script type="text/template" id="part-property-input-template">
+<label class='col-sm-2 control-label'>
+<%= get("className") + "." + get("name") %>
+</label>
+<div class='col-sm-10'>
+<input type='text' class='form-control' name='<%= get("className") + "." + get("name") %>'
+<% if (get("isRequired")){ %>
+	required
+<% } %>
+></div></div>
+</script>
+
 @* JavaScirpt Router *@
 <script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
 
@@ -80,6 +92,8 @@ var CLASS_TYPE_INITIALIZER = @{
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/CollectionView.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTable.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTableRow.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/CreatePartInput.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/CreatePartDialogBody.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/FieldNameOption.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/FieldNameSelect.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeaderData.js")"></script>
@@ -171,7 +185,7 @@ var CLASS_TYPE_INITIALIZER = @{
 					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-horizontal" role="form"></div>
+					<div class="form-horizontal" role="form" id="create-part-dialog-body"></div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
