@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import annotation.ClassEntityAttribute;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 
@@ -22,6 +23,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @Table(name = "parts")
+@ClassEntityAttribute()
 public final class Part extends Model {
 
 	/**

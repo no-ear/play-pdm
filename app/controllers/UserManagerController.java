@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import models.AttributeDefinition;
+import models.ClassDefinition;
 import models.Person;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -39,9 +40,11 @@ public class UserManagerController extends Controller {
 	 */
 	public static Result index() {
 
+		ClassDefinition classDefinition = new ClassDefinition(Person.class);
+
 		Field[] fields = Person.class.getFields();
 		AttributeDefinition[] attributeDefinitions = AttributeDefinition
-				.getAttributeDefinitions(fields);
+				.getAttributeDefinitions(classDefinition, fields);
 
 		return ok(UserManager.render(attributeDefinitions));
 	}

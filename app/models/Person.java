@@ -21,6 +21,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import annotation.ClassEntityAttribute;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 import play.db.ebean.Model;
@@ -32,6 +33,7 @@ import play.libs.Json;
  */
 @Entity
 @Table(name = "persons")
+@ClassEntityAttribute()
 public final class Person extends Model {
 
 	/**

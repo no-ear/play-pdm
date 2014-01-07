@@ -8,12 +8,11 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import annotation.ClassEntityAttribute;
 import models.AttributeDefinition;
+import models.ClassDefinition;
 import models.Part;
 import models.partversions.BoltPartVersion;
 import models.partversions.FramePartVersion;
-import play.i18n.Messages;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -60,9 +59,10 @@ public class PartManagerController extends Controller {
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result getPartIndex(final String name) {
+		ClassDefinition partClassDefinition = new ClassDefinition(Part.class);
 		Field[] partFields = Part.class.getFields();
 		AttributeDefinition[] partAttributeDefinitions = AttributeDefinition
-				.getAttributeDefinitions(partFields);
+				.getAttributeDefinitions(partClassDefinition, partFields);
 
 		List<AttributeDefinition> attributeDefinitionList = new ArrayList<AttributeDefinition>();
 		for (AttributeDefinition attr : partAttributeDefinitions) {
@@ -71,8 +71,11 @@ public class PartManagerController extends Controller {
 
 		Field[] partVersionFields = entityClassMap.get(name).classType
 				.getFields();
+		ClassDefinition partVersionClassDefinition = new ClassDefinition(
+				entityClassMap.get(name).classType);
 		AttributeDefinition[] attributeDefinitions = AttributeDefinition
-				.getAttributeDefinitions(partVersionFields);
+				.getAttributeDefinitions(partVersionClassDefinition,
+						partVersionFields);
 		for (AttributeDefinition attr : attributeDefinitions) {
 			attributeDefinitionList.add(attr);
 		}
@@ -85,46 +88,4 @@ public class PartManagerController extends Controller {
 		return ok(jsonNode);
 	}
 
-	/**
-	 * Class definition class.
-	 */
-	public static class ClassDefinition {
-		/**
-		 * Constructor.
-		 * 
-		 * @param cls
-		 *            class info
-		 */
-		public ClassDefinition(final Class<?> cls) {
-			name = cls.getName();
-
-			ClassEntityAttribute propertyType = cls
-					.getAnnotation(ClassEntityAttribute.class);
-			String aliasKey = propertyType.aliasKey();
-			if (!aliasKey.equals("")) {
-				String message = Messages.get("person."
-						+ propertyType.aliasKey());
-				displayName = message;
-			} else {
-				displayName = null;
-			}
-
-			classType = cls;
-		}
-
-		/**
-		 * Class name.
-		 */
-		public String name; // SUPPRESS CHECKSTYLE
-
-		/**
-		 * Display name in view.
-		 */
-		public String displayName; // SUPPRESS CHECKSTYLE
-
-		/**
-		 * Class object.
-		 */
-		public Class<?> classType; // SUPPRESS CHECKSTYLE
-	}
 };

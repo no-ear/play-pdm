@@ -3,8 +3,6 @@ package models;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,6 +19,11 @@ import annotation.PropertyAttribute;
  */
 public final class AttributeDefinition implements
 		Comparable<AttributeDefinition> {
+	/**
+	 * Class definition.
+	 */
+	public ClassDefinition classDefinition; // SUPPRESS CHECKSTYLE
+
 	/**
 	 * Field name.
 	 */
@@ -59,10 +62,14 @@ public final class AttributeDefinition implements
 	/**
 	 * Constructor.
 	 * 
+	 * @param def
+	 *            Class that has the field
 	 * @param field
 	 *            Class field
 	 */
-	public AttributeDefinition(final Field field) {
+	public AttributeDefinition(final ClassDefinition def, final Field field) {
+
+		classDefinition = def;
 
 		name = field.getName();
 
@@ -109,7 +116,7 @@ public final class AttributeDefinition implements
 	 * @return AttributeDefinition Array
 	 */
 	public static AttributeDefinition[] getAttributeDefinitions(
-			final Field[] fields) {
+			final ClassDefinition def, final Field[] fields) {
 
 		ArrayList<AttributeDefinition> list = new ArrayList<AttributeDefinition>();
 
@@ -120,7 +127,8 @@ public final class AttributeDefinition implements
 				continue;
 			}
 
-			AttributeDefinition attributeData = new AttributeDefinition(field);
+			AttributeDefinition attributeData = new AttributeDefinition(def,
+					field);
 
 			list.add(attributeData);
 		}
