@@ -80,6 +80,8 @@ var CLASS_TYPE_INITIALIZER = @{
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/CollectionView.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTable.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/ClassTableRow.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/FieldNameOption.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/FieldNameSelect.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeaderData.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeader.js")"></script>
 
@@ -121,7 +123,7 @@ var CLASS_TYPE_INITIALIZER = @{
 						</ul></li>
 				</ul>
 				<form class="navbar-form navbar-left" role="search" id="simple-search">
-					<select name="name">
+					<select name="name" id="field-name-select">
 					</select>
 					<div class="form-group">
 						<input type="text" name="value" class="form-control" placeholder="Search">

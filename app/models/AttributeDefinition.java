@@ -166,6 +166,7 @@ public final class AttributeDefinition implements
 	private JsonNode toJsonNode() {
 		ObjectNode jsonObject = Json.newObject();
 
+		jsonObject.put("className", classDefinition.name);
 		jsonObject.put("name", name);
 		jsonObject.put("displayName", displayName);
 		jsonObject.put("isCreate", isCreate);
