@@ -8,6 +8,8 @@ $(function() {
 	new FieldNameSelect();
 	
 	new CreatePartDialogBody();
+	
+	new PartVersionPropertyCreateDialog();
 
 	// Initialize collections
 	partClassTypes.reset(CLASS_TYPE_INITIALIZER);

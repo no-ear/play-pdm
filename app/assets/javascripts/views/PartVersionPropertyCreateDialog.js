@@ -34,7 +34,7 @@ var PartVersionPropertyCreateDialog = Backbone.View.extend(
 	 *            jQuery.Event object
 	 */
 	onSubmit : function(e) {
-		// Not run nomal process. Not bubbling.
+		// Not run normal process. Not bubbling.
 		e.preventDefault();
 
 		// Get form parameter.
@@ -45,14 +45,12 @@ var PartVersionPropertyCreateDialog = Backbone.View.extend(
 			param[valueOfElement.name] = valueOfElement.value;
 		});
 
-		// hidden attribute
-		param["_className"] = this.selectedClassName;
-
-		var partVersion = new PartVersion();
-
-		partVersion.save(param, {
+		$.ajax({
+			type : "POST",
+			url : "partmanager/" + this.selectedClassName,
+			data : JSON.stringify(param),
 			success : this.onSaveSuccess,
-			wait : true
+			contentType : "application/json"
 		});
 
 		this.$el.modal('hide');

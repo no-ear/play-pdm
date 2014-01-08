@@ -1,8 +1,6 @@
 package models.partversions;
 
 import java.util.Date;
-import java.util.Map;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -143,14 +141,4 @@ public abstract class PartVersion extends Model {
 	 * Serial Version ID.
 	 */
 	private static final long serialVersionUID = 8112656005314996071L;
-
-	/**
-	 * Build new part and part version.
-	 * 
-	 * @param properties
-	 *            New create part property
-	 * @return New PartVersion
-	 */
-	public static PartVersion buildPartVersion(
-			final Map<String, Object> properties);
 }

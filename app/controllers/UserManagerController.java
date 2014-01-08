@@ -72,7 +72,7 @@ public class UserManagerController extends Controller {
 
 		Person person = Person.build(hashMap);
 
-		// 今のところ追加情報がなく、IDのみ返せばいいのでこれで
+		// Not add server generate attribute, return only id.
 		ObjectNode jsonNode = Json.newObject();
 		jsonNode.put("id", Long.toString(person.id));
 

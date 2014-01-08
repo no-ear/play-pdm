@@ -25,7 +25,7 @@ GET    /partmanager                   controllers.PartManagerController.index()
 GET    /partmanager/getPartIndex      controllers.PartManagerController.getPartIndex(className)
 
 # PartVersion CRUD
-POST   /partmanager/partversion       controllers.PartManagerController.create()
+POST   /partmanager/BoltPartVersion   controllers.BoltPartVersionController.create()
 
 # Javascript
 GET    /assets/javascripts/routes     controllers.Application.javascriptRoutes()
