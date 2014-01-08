@@ -1,19 +1,12 @@
 package models;
 
-import static org.junit.Assert.*;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.fakeGlobal;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.PersistenceException;
-
-import models.partversions.DesignPartVersion;
-
 import org.junit.Before;
-import org.junit.Test;
-
 import play.test.WithApplication;
 import tests.TestUtility;
 
@@ -39,32 +32,5 @@ public final class PartVersionTest extends WithApplication {
 		TestUtility.dropCreateDb();
 	}
 
-	/**
-	 * build new part version.
-	 */
-	@Test
-	public void buildPartVersion() {
-		Part part = new Part();
-		part.number = "SCREW-0001";
 
-		DesignPartVersion partVersion = new DesignPartVersion();
-
-		DesignPartVersion.buildPartVersion(part, partVersion);
-
-		assertEquals(partVersion.part, part);
-		assertEquals(partVersion.version, 1);
-		assertNotNull(partVersion.createDate);
-	}
-
-	/**
-	 * build new part version set null number error.
-	 */
-	@Test(expected = PersistenceException.class)
-	public void buildPartVersionNumberNull() {
-		Part part = new Part();
-
-		DesignPartVersion partVersion = new DesignPartVersion();
-
-		DesignPartVersion.buildPartVersion(part, partVersion);
-	}
 }

@@ -1,6 +1,8 @@
 package models;
 
+import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -89,4 +91,29 @@ public final class Part extends Model {
 	 * Serial Version ID.
 	 */
 	private static final long serialVersionUID = -7556779886341618589L;
+
+	public static Part build(HashMap<String, Object> partProperties) {
+		Part part = new Part();
+
+		Field[] fields = Part.class.getFields();
+
+		for (Field field : fields) {
+			String key = "Part." + field.getName();
+			if (!partProperties.containsKey(key)) {
+				continue;
+			}
+
+			Object object = partProperties.get(key);
+			try {
+				field.set(part, object);
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				// No reachable code?
+				e.printStackTrace();
+			}
+		}
+
+		part.save();
+
+		return part;
+	}
 }

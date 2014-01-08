@@ -55,7 +55,7 @@ public abstract class PartVersion extends Model {
 	 */
 	@Column
 	@PropertyAttribute(type = InputType.TEXT, isRead = false)
-	public int version; // SUPPRESS CHECKSTYLE
+	public int version = 1; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Create date.
