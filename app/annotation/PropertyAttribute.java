@@ -35,11 +35,6 @@ public @interface PropertyAttribute {
 	InputType type();
 
 	/**
-	 * i18n file key when Property display.
-	 */
-	String aliasKey() default "";
-
-	/**
 	 * Propertiable on creating Flag.
 	 */
 	boolean isCreate() default true;

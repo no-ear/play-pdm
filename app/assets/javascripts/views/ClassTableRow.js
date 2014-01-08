@@ -54,5 +54,7 @@ var ClassTableRow = Backbone.View.extend(
 	 */
 	onSuccess : function(data, dataType) {
 		attributeDefinitions.reset(data);
+
+		mediator.trigger("selectedPartVersionClass", this.model.get("name"));
 	}
 });

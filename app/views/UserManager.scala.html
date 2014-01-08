@@ -105,11 +105,7 @@
 					@attributeDefinitions.map { attributeDefinition =>
 						@if(attributeDefinition.isRead == true){
 							<option value="@attributeDefinition.name">
-							@if(attributeDefinition.displayName == null){
-								@attributeDefinition.name
-							} else {
-								@attributeDefinition.displayName
-							}
+							@attributeDefinition.displayName
 							</option>	
 						}	 
 					} 
@@ -131,11 +127,7 @@
 						@attributeDefinitions.map { attributeDefinition =>
 							@if(attributeDefinition.isRead == true){
 							<th>
-							@if(attributeDefinition.displayName == null){
-								@attributeDefinition.name
-							} else {
-								@attributeDefinition.displayName
-							}
+							@attributeDefinition.displayName
 							</th>	
 							}	 
 						} 

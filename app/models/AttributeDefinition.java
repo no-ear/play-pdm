@@ -75,13 +75,8 @@ public final class AttributeDefinition implements
 
 		PropertyAttribute propertyType = field
 				.getAnnotation(PropertyAttribute.class);
-		String aliasKey = propertyType.aliasKey();
-		if (!aliasKey.equals("")) {
-			String message = Messages.get("person." + propertyType.aliasKey());
-			displayName = message;
-		} else {
-			displayName = null;
-		}
+		String message = Messages.get(classDefinition.name + "." + name);
+		displayName = message;
 
 		isCreate = propertyType.isCreate();
 		isRead = propertyType.isRead();
@@ -111,7 +106,8 @@ public final class AttributeDefinition implements
 	/**
 	 * Create class AttributeDefinition Array.
 	 * 
-	 * @param def Class meta informations
+	 * @param def
+	 *            Class meta informations
 	 * @param fields
 	 *            Class field informations
 	 * @return AttributeDefinition Array

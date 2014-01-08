@@ -1,6 +1,7 @@
 package models.partversions;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -144,26 +145,12 @@ public abstract class PartVersion extends Model {
 	private static final long serialVersionUID = 8112656005314996071L;
 
 	/**
-	 * Build new part and part version.<br>
-	 * セーブの責任は基本的にモデル側にあるので呼び出し元で呼ばないでね。<br>
-	 * This method is "save" responsibility. So client doesn't need it.
+	 * Build new part and part version.
 	 * 
-	 * @param part
+	 * @param properties
 	 *            New create part property
-	 * @param partVersion
-	 *            New create part version property
 	 * @return New PartVersion
 	 */
-	public static PartVersion buildPartVersion(final Part part,
-			final PartVersion partVersion) {
-
-		part.save();
-
-		partVersion.part = part;
-		partVersion.version = 1;
-
-		partVersion.save();
-
-		return partVersion;
-	}
+	public static PartVersion buildPartVersion(
+			final Map<String, Object> properties);
 }

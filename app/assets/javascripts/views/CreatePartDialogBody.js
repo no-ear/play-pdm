@@ -22,6 +22,10 @@ var CreatePartDialogBody = CollectionView.extend(
 	 * @return child view
 	 */
 	createSubView : function(model) {
+		if( model.get("isCreate") == false ){
+			return;
+		}
+		
 		return new CreatePartInput({
 			"model" : model
 		});

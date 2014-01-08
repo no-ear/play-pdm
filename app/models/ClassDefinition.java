@@ -1,7 +1,6 @@
 package models;
 
 import play.i18n.Messages;
-import annotation.ClassEntityAttribute;
 
 /**
  * Class definition class.
@@ -14,17 +13,10 @@ public class ClassDefinition {
 	 *            class info
 	 */
 	public ClassDefinition(final Class<?> cls) {
-		name = cls.getName();
+		name = cls.getSimpleName();
 
-		ClassEntityAttribute propertyType = cls
-				.getAnnotation(ClassEntityAttribute.class);
-		String aliasKey = propertyType.aliasKey();
-		if (!aliasKey.equals("")) {
-			String message = Messages.get("person." + propertyType.aliasKey());
-			displayName = message;
-		} else {
-			displayName = null;
-		}
+		String message = Messages.get(cls.getSimpleName());
+		displayName = message;
 
 		classType = cls;
 	}

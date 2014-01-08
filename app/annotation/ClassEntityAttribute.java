@@ -11,8 +11,4 @@ import java.lang.annotation.RetentionPolicy;
 @Target(ElementType.TYPE)
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface ClassEntityAttribute {
-	/**
-	 * i18n file key when Property display.
-	 */
-	String aliasKey() default "";
 }
