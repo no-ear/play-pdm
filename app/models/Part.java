@@ -1,7 +1,5 @@
 package models;
 
-import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
-
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +19,6 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.db.ebean.Model;
-import play.libs.Json;
 
 /**
  * Part model class.
