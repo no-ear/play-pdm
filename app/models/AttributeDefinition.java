@@ -3,6 +3,7 @@ package models;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,7 @@ import play.api.libs.json.JsValue;
 import play.i18n.Messages;
 import play.libs.Json;
 import annotation.PropertyAttribute;
+import annotation.PropertyAttribute.InputType;
 
 /**
  * Model field meta info.
@@ -59,6 +61,8 @@ public final class AttributeDefinition implements
 	 */
 	public int priorityNumber; // SUPPRESS CHECKSTYLE
 
+	public InputType inputType;
+
 	/**
 	 * Constructor.
 	 * 
@@ -88,6 +92,8 @@ public final class AttributeDefinition implements
 		}
 
 		priorityNumber = propertyType.priorityNumber();
+
+		inputType = propertyType.type();
 	}
 
 	@Override

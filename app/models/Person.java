@@ -143,11 +143,12 @@ public final class Person extends Model {
 		Field[] fields = Person.class.getFields();
 
 		for (Field field : fields) {
-			if (!properties.containsKey(field.getName())) {
+			String key = "Person." + field.getName();
+			if (!properties.containsKey(key)) {
 				continue;
 			}
 
-			Object object = properties.get(field.getName());
+			Object object = properties.get(key);
 			try {
 				field.set(person, object);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -157,11 +158,11 @@ public final class Person extends Model {
 		}
 
 		// Properties have password.
-		if (!properties.containsKey("password")) {
+		if (!properties.containsKey("Person.password")) {
 			return null;
 		}
 
-		String password = (String) properties.get("password");
+		String password = (String) properties.get("Person.password");
 
 		person.salt = RandomStringUtils.randomAscii(RANDOM_STRING_LENGTH);
 		person.passwordHash = DigestUtils.sha256Hex(password + person.salt);

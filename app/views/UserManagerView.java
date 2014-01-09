@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 
 import javax.validation.constraints.NotNull;
 
+import models.AttributeDefinition;
 import models.Person;
 import annotation.PropertyAttribute;
 
@@ -23,32 +24,25 @@ public final class UserManagerView {
 	 * TODO htmlではなくて必要なデータ構造体の配列かえしてscala側でレンダルできない？<br>
 	 * そのばあいcontrolにおくべき？
 	 * 
+	 * @param attributeDefinitions
+	 *            class field definition
 	 * @return html piece
 	 */
-	public static String generatePropertiesForm() {
+	public static String generatePropertiesForm(
+			final AttributeDefinition[] attributeDefinitions) {
 
 		String resultHtml = "";
 
-		Field[] fields = Person.class.getFields();
-
-		for (Field field : fields) {
-			PropertyAttribute propertyType = field.getAnnotation(PropertyAttribute.class);
-			if (propertyType == null) {
-				continue;
-			}
-
-			boolean isRequired = false;
-			if (field.getAnnotation(NotNull.class) != null) {
-				isRequired = true;
-			}
-
+		for (AttributeDefinition attributeDefinition : attributeDefinitions) {
 			String inputHtml = "<div class='form-group'>"
 					+ "<label class='col-sm-2 control-label'>"
-					+ field.getName() + "</label>" + "<div class='col-sm-10'>"
-					+ "<input type='" + propertyType.type()
-					+ "' class='form-control' name='" + field.getName() + "' ";
+					+ attributeDefinition.displayName + "</label>"
+					+ "<div class='col-sm-10'>" + "<input type='"
+					+ attributeDefinition.inputType.toString()
+					+ "' class='form-control' name='"
+					+ attributeDefinition.name + "' ";
 
-			if (isRequired) {
+			if (attributeDefinition.isRequired) {
 				inputHtml += "required";
 			}
 
