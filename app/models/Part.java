@@ -1,5 +1,7 @@
 package models;
 
+import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
+
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,20 +14,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import annotation.ClassEntityAttribute;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.db.ebean.Model;
+import play.libs.Json;
 
 /**
  * Part model class.
  */
 @Entity
 @Table(name = "parts")
-@ClassEntityAttribute()
 public final class Part extends Model {
 
 	/**
@@ -92,7 +94,7 @@ public final class Part extends Model {
 	 */
 	private static final long serialVersionUID = -7556779886341618589L;
 
-	public static Part build(HashMap<String, Object> partProperties) {
+	public static Part build(final HashMap<String, Object> partProperties) {
 		Part part = new Part();
 
 		Field[] fields = Part.class.getFields();
@@ -115,5 +117,9 @@ public final class Part extends Model {
 		part.save();
 
 		return part;
+	}
+
+	public ObjectNode toJsonNode() {
+		return ModelsUtility.toJsonNode(this);
 	}
 }

@@ -21,7 +21,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import annotation.ClassEntityAttribute;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 import play.db.ebean.Model;
@@ -33,7 +32,6 @@ import play.libs.Json;
  */
 @Entity
 @Table(name = "persons")
-@ClassEntityAttribute()
 public final class Person extends Model {
 
 	/**
@@ -188,44 +186,9 @@ public final class Person extends Model {
 		ArrayNode array = json.arrayNode();
 
 		for (Person person : list) {
-			Field[] fields = Person.class.getFields();
+			ObjectNode jsonObject = ModelsUtility.toJsonNode(person);
 
-			ObjectNode jsonObject = Json.newObject();
-			for (Field field : fields) {
-				PropertyAttribute propertyType = field
-						.getAnnotation(PropertyAttribute.class);
-				if (propertyType == null) {
-					continue;
-				}
-
-				if (!propertyType.isRead()) {
-					continue;
-				}
-
-				Class<?> type = field.getType();
-
-				if (long.class == type) {
-					long value = 0;
-					try {
-						value = (long) field.get(person);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						// Does not reach because it already checked
-						e.printStackTrace();
-					}
-					jsonObject.put(field.getName(), Long.toString(value));
-				} else if (String.class == type) {
-					String value = null;
-					try {
-						value = (String) field.get(person);
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						// Does not reach because it already checked
-						e.printStackTrace();
-					}
-					jsonObject.put(field.getName(), escapeHtml4(value));
-				}
-			}
-
-			// Set id always.
+			// Set id always. use backbone.js.
 			jsonObject.put("id", Long.toString(person.id));
 
 			array.add(jsonObject);

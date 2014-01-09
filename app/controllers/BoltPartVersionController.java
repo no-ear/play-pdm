@@ -49,19 +49,28 @@ public class BoltPartVersionController extends Controller {
 		HashMap<String, Object> partVersionProperties = divideProperties(
 				"BoltPartVersion", hashMap);
 
-		System.out.println(partProperties);
-		System.out.println(partVersionProperties);
-
 		BoltPartVersion partVersion = BoltPartVersion.buildPartVersion(
 				partProperties, partVersionProperties);
 
-		ObjectNode jsonNode = partVersion.toJsonNode();
+		ObjectNode partJsonNode = partVersion.part.toJsonNode();
+		ObjectNode partVersionJsonNode = partVersion.toJsonNode();
 
-		return ok("{}");
+		partJsonNode.putAll(partVersionJsonNode);
+
+		return ok(partJsonNode);
 	}
 
-	private static HashMap<String, Object> divideProperties(String className,
-			HashMap<String, Object> hashMap) {
+	/**
+	 * To divide the property to see the class name.
+	 * 
+	 * @param className
+	 *            Extract class name
+	 * @param hashMap
+	 *            property
+	 * @return Extract property
+	 */
+	private static HashMap<String, Object> divideProperties(
+			final String className, final HashMap<String, Object> hashMap) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 
 		for (Map.Entry<String, Object> entry : hashMap.entrySet()) {

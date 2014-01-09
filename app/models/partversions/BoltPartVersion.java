@@ -7,11 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import models.ModelsUtility;
 import models.Part;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import annotation.ClassEntityAttribute;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 import play.db.ebean.Model;
@@ -21,8 +21,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @DiscriminatorValue("BOLT_PART_VERSION")
-@ClassEntityAttribute()
-public class BoltPartVersion extends DesignPartVersion {
+public final class BoltPartVersion extends DesignPartVersion {
 
 	/**
 	 * Example unique attribute.
@@ -50,7 +49,7 @@ public class BoltPartVersion extends DesignPartVersion {
 	private static final long serialVersionUID = -59223505116187178L;
 
 	public ObjectNode toJsonNode() {
-		return null;
+		return ModelsUtility.toJsonNode(this);
 	}
 
 	/**
