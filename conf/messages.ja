@@ -19,7 +19,7 @@ Part.modifyPerson=更新者
 Part.number=部品番号
 
 # BoltPartVersion
-BoltPartVersion=BoltPartVersion
+BoltPartVersion=ネジ
 BoltPartVersion.id=id
 BoltPartVersion.version=version
 BoltPartVersion.createDate=作成日
@@ -31,7 +31,7 @@ BoltPartVersion.diameter=直径
 BoltPartVersion.comment=コメント
 
 # FramePartVersion
-FramePartVersion=FramePartVersion
+FramePartVersion=フレーム
 FramePartVersion.id=id
 FramePartVersion.version=version
 FramePartVersion.createDate=作成日
