@@ -18,7 +18,7 @@ var PartTableHeaderData = Backbone.View.extend(
 	 *         enable chained calls.
 	 */
 	render : function() {
-		this.$el.append(this.model.get("name"));
+		this.$el.append(this.model.get("displayName"));
 		return this;
 	}
 });

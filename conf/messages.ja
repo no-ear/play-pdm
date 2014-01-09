@@ -1,43 +1,43 @@
 # Person
-Person=Person
+Person=ユーザ
 Person.id=id
-Person.name=name
-Person.fullName=fullName
-Person.passwordHash=passwordHash
+Person.name=ユーザ名
+Person.fullName=フルネーム
+Person.passwordHash=パスワードハッシュ
 Person.salt=salt
-Person.title=title
-Person.password=password
+Person.title=肩書き
+Person.password=パスワード
 
 # Part
 Part=Part
 Part.id=id
-Part.name=name
-Part.createDate=createDate
-Part.createPerson=createPerson
-Part.modifyDate=modifyDate
-Part.modifyPerson=modifyPerson
-Part.number=number
+Part.name=部品名
+Part.createDate=作成日
+Part.createPerson=作成者
+Part.modifyDate=更新日
+Part.modifyPerson=更新者
+Part.number=部品番号
 
 # BoltPartVersion
 BoltPartVersion=BoltPartVersion
 BoltPartVersion.id=id
 BoltPartVersion.version=version
-BoltPartVersion.createDate=createDate
-BoltPartVersion.createPerson=createPerson
-BoltPartVersion.modifyDate=modifyDate
-BoltPartVersion.modifyPerson=modifyPerson
-BoltPartVersion.lifecycleStateName=lifecycleStateName
-BoltPartVersion.diameter=diameter
-BoltPartVersion.comment=comment
+BoltPartVersion.createDate=作成日
+BoltPartVersion.createPerson=作成者
+BoltPartVersion.modifyDate=更新日
+BoltPartVersion.modifyPerson=更新者
+BoltPartVersion.lifecycleStateName=ライフサイクル
+BoltPartVersion.diameter=直径
+BoltPartVersion.comment=コメント
 
 # FramePartVersion
 FramePartVersion=FramePartVersion
 FramePartVersion.id=id
 FramePartVersion.version=version
-FramePartVersion.createDate=createDate
-FramePartVersion.createPerson=createPerson
-FramePartVersion.modifyDate=modifyDate
-FramePartVersion.modifyPerson=modifyPerson
-FramePartVersion.lifecycleStateName=lifecycleStateName
-FramePartVersion.width=width
-FramePartVersion.height=height
+FramePartVersion.createDate=作成日
+FramePartVersion.createPerson=作成者
+FramePartVersion.modifyDate=更新日
+FramePartVersion.modifyPerson=更新者
+FramePartVersion.lifecycleStateName=ライフサイクル
+FramePartVersion.width=幅
+FramePartVersion.height=高さ

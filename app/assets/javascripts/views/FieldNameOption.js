@@ -18,7 +18,7 @@ var FieldNameOption = Backbone.View.extend(
 	 *         enable chained calls.
 	 */
 	render : function() {
-		this.$el.html(this.model.get("className") + "." + this.model.get("name"));
+		this.$el.html(this.model.get("displayName"));
 		return this;
 	}
 });
