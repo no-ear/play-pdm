@@ -24,6 +24,7 @@ public final class ModelsUtility {
 		{
 			put(String.class, new ParseString());
 			put(Date.class, new ParseDate());
+			put(double.class, new ParseObject());
 		}
 	};
 
@@ -154,10 +155,8 @@ public final class ModelsUtility {
 	}
 
 	/**
-	 * Force Parse Object.<br>
-	 * May be used ... ?
+	 * Force Parse Object.
 	 */
-	@SuppressWarnings("unused")
 	private static class ParseObject implements ParseObjectStrategy {
 
 		@Override
