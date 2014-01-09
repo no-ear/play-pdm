@@ -94,7 +94,11 @@ public class UserManagerController extends Controller {
 			return badRequest();
 		}
 
-		List<Person> list = Person.selectLike(name, value);
+		// Separete Name(Person(Const class name) + "." + field name )
+		String[] strings = name.split("\\.");
+		String fieldName = strings[strings.length - 1];
+
+		List<Person> list = Person.selectLike(fieldName, value);
 
 		ArrayNode jsonNode = Person.toArrayNode(list);
 

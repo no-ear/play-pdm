@@ -1,7 +1,5 @@
 package models;
 
-import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
-
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;

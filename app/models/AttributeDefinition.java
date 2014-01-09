@@ -71,13 +71,13 @@ public final class AttributeDefinition implements
 
 		classDefinition = def;
 
-		name = field.getName();
+		name = classDefinition.name + "." + field.getName();
+
+		String message = Messages.get(name);
+		displayName = message;
 
 		PropertyAttribute propertyType = field
 				.getAnnotation(PropertyAttribute.class);
-		String message = Messages.get(classDefinition.name + "." + name);
-		displayName = message;
-
 		isCreate = propertyType.isCreate();
 		isRead = propertyType.isRead();
 		isUpdate = propertyType.isUpdate();
