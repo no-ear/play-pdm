@@ -7,8 +7,8 @@
 var PartVersion = Backbone.Model.extend(
 /** @lends PartVersion# */
 {
-	/**
-	 * Use in model url method.
-	 */
-	urlRoot : jsRoutes.controllers.PartManagerController.create().absoluteURL()
+/**
+ * Use in model url method.
+ */
+// urlRoot : jsRoutes.controllers.PartManagerController.create().absoluteURL()
 });

@@ -5,3 +5,4 @@ var partClassTypes = new PartClassTypes();
 
 var attributeDefinitions = new AttributeDefinitions();
 
+var partVersions = new PartVersions();

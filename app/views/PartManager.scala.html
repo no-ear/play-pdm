@@ -33,7 +33,7 @@
     <![endif]-->
 
 @* Underscore template *@
-<script type="text/template" id="part-table-row-template">
+<script type="text/template" id="class-table-row-template">
 <td>
 <%= get("displayName") %>
 </td>
@@ -84,6 +84,8 @@ var CLASS_TYPE_INITIALIZER = @{
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/AttributeDefinitions.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartClassType.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartClassTypes.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartVersion.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/models/PartVersions.js")"></script>
 
 @* Grobal models, like database tables. *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagermodels.js")"></script>
@@ -99,6 +101,8 @@ var CLASS_TYPE_INITIALIZER = @{
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeaderData.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartTableHeader.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartVersionPropertyCreateDialog.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartVersionTableRow.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/views/PartVersionTable.js")"></script>
 
 @* main *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/partmanagerviews.js")"></script>

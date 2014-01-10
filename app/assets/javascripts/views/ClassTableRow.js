@@ -13,7 +13,7 @@ var ClassTableRow = Backbone.View.extend(
 	/**
 	 * Underscore template.
 	 */
-	template : _.template($('#part-table-row-template').html()),
+	template : _.template($('#class-table-row-template').html()),
 	/**
 	 * Relate callback function to event on DOM root(el property).
 	 */

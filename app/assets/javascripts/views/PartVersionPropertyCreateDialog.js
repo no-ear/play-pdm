@@ -64,7 +64,7 @@ var PartVersionPropertyCreateDialog = Backbone.View.extend(
 	 *            response
 	 */
 	onSaveSuccess : function(model, response) {
-		partVersion.add(model);
+		partVersions.add(model);
 	},
 	/**
 	 * Callback that selected part version class.
