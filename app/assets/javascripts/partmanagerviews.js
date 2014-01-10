@@ -13,6 +13,8 @@ $(function() {
 
 	new PartVersionTable();
 
+	new SimplePartVersionSearchForm({});
+
 	// Initialize collections
 	partClassTypes.reset(CLASS_TYPE_INITIALIZER);
 });

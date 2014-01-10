@@ -3,32 +3,33 @@
 # ~~~~
 
 # Home page
-GET    /                              controllers.Application.index()
+GET    /                                       controllers.Application.index()
 
 # Login
-GET    /login                         controllers.LoginController.login()
-POST   /authenticate                  controllers.LoginController.authenticate()
-GET    /logout                        controllers.LoginController.logout()
+GET    /login                                  controllers.LoginController.login()
+POST   /authenticate                           controllers.LoginController.authenticate()
+GET    /logout                                 controllers.LoginController.logout()
 
 # User manager
-GET    /usermanager                   controllers.UserManagerController.index()
+GET    /usermanager                            controllers.UserManagerController.index()
 
 # User CRUD
-POST   /usermanager/person            controllers.UserManagerController.create()
+POST   /usermanager/person                     controllers.UserManagerController.create()
 # GET      /usermanager/person/:id                    controllers.TimetapeController.read(id : Long)
 # PUT      /usermanager/person/:id      controllers.UserManagerController.update(id : Long)
 # DELETE   /usermanager/person/:id      controllers.UserManagerController.delete(id : Long)
-GET    /usermanager/person/readLike   controllers.UserManagerController.readLike(name, value)
+GET    /usermanager/readLike                   controllers.UserManagerController.readLike(name, value)
 
 # Part manager
-GET    /partmanager                   controllers.PartManagerController.index()
-GET    /partmanager/getPartIndex      controllers.PartManagerController.getPartIndex(className)
+GET    /partmanager                            controllers.PartManagerController.index()
+GET    /partmanager/getPartIndex               controllers.PartManagerController.getPartIndex(className)
 
 # PartVersion CRUD
-POST   /partmanager/BoltPartVersion   controllers.BoltPartVersionController.create()
+POST   /partmanager/BoltPartVersion            controllers.BoltPartVersionController.create()
+GET    /partmanager/readLike/BoltPartVersion   controllers.BoltPartVersionController.readLike(name, value)
 
 # Javascript
-GET    /assets/javascripts/routes     controllers.Application.javascriptRoutes()
+GET    /assets/javascripts/routes              controllers.Application.javascriptRoutes()
 
 # Map static resources from the /public folder to the /assets URL path
-GET    /assets/*file                  controllers.Assets.at(path="/public", file)
+GET    /assets/*file                           controllers.Assets.at(path="/public", file)

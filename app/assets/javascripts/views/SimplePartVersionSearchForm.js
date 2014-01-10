@@ -1,15 +1,15 @@
 /**
- * Part version create dialog.
+ * Part version Search form in menu bar view class.
  * 
- * @class PartVersionPropertyCreateDialog
+ * @class SimplePartVersionSearchForm
  */
-var PartVersionPropertyCreateDialog = Backbone.View.extend(
-/** @lends PartVersionPropertyCreateDialog# */
+var SimplePartVersionSearchForm = Backbone.View.extend(
+/** @lends SimplePartVersionSearchForm# */
 {
 	/**
 	 * Backbone DOM element.
 	 */
-	el : "#create-part-dialog",
+	el : "#simple-search",
 	/**
 	 * Relate callback function to event on DOM root(el property).
 	 */
@@ -34,29 +34,21 @@ var PartVersionPropertyCreateDialog = Backbone.View.extend(
 	 *            jQuery.Event object
 	 */
 	onSubmit : function(e) {
-		// Not run normal process. Not bubbling.
+		// Not run nomal process. Not bubbling.
 		e.preventDefault();
 
-		// Get form parameter.
-		var form = this.$el;
-		var param = {};
-
-		$(form.serializeArray()).each(function(indexInArray, valueOfElement) {
-			param[valueOfElement.name] = valueOfElement.value;
-		});
+		var name = this.$el.find("[name='name']").val();
+		var value = this.$el.find("[name='value']").val();
 
 		$.ajax({
-			type : "POST",
-			url : "partmanager/" + this.selectedClassName,
-			data : JSON.stringify(param),
-			success : this.onSuccess,
-			contentType : "application/json"
+			type : "GET",
+			url : "partmanager/readLike/" + this.selectedClassName,
+			data : "name=" + name + "&value=" + value,
+			success : this.onSuccess
 		});
-
-		this.$el.modal('hide');
 	},
 	/**
-	 * New part create success callback.
+	 * Success search callback function.
 	 * 
 	 * @param data
 	 *            Response data
@@ -64,7 +56,7 @@ var PartVersionPropertyCreateDialog = Backbone.View.extend(
 	 *            Response data type
 	 */
 	onSuccess : function(data, dataType) {
-		partVersions.add(data);
+		persons.reset(data);
 	},
 	/**
 	 * Callback that selected part version class.

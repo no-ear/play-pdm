@@ -2,7 +2,7 @@ $(function() {
 
 	new PersonPropertyCreateDialog({});
 
-	new SimpleSearchForm({});
+	new SimplePersonSearchForm({});
 
 	new PersonTable({});
 

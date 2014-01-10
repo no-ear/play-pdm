@@ -83,4 +83,18 @@ public class BoltPartVersionController extends Controller {
 
 		return result;
 	}
+
+	/**
+	 * Simple search.
+	 * 
+	 * @param name
+	 *            Part version attribute name
+	 * @param value
+	 *            Like search value
+	 * @return Http response(Json)
+	 */
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result readLike(final String name, final String value) {
+		return TODO;
+	}
 }

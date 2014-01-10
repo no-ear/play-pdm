@@ -1,10 +1,10 @@
 /**
  * Search form in menu bar view class.
  * 
- * @class SimpleSearchForm
+ * @class SimplePersonSearchForm
  */
-var SimpleSearchForm = Backbone.View.extend(
-/** @lends SimpleSearchForm# */
+var SimplePersonSearchForm = Backbone.View.extend(
+/** @lends SimplePersonSearchForm# */
 {
 	/**
 	 * Backbone DOM element.
