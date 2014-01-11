@@ -49,7 +49,11 @@ public final class BoltPartVersion extends DesignPartVersion {
 	private static final long serialVersionUID = -59223505116187178L;
 
 	public ObjectNode toJsonNode() {
-		return ModelsUtility.toJsonNode(this);
+		ObjectNode jsonNode = ModelsUtility.toJsonNode(this);
+
+		// Append Backbone use id.
+		jsonNode.put("id", id);
+		return jsonNode;
 	}
 
 	/**

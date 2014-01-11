@@ -11,6 +11,12 @@ var PartVersionTableRow = Backbone.View.extend(
 	 */
 	tagName : "tr",
 	/**
+	 * Relate callback function to event on DOM root(el property).
+	 */
+	events : {
+		'click' : 'onClick'
+	},
+	/**
 	 * Renders the view template from model data, and updates this.el with the
 	 * new HTML.
 	 * 
@@ -28,5 +34,14 @@ var PartVersionTableRow = Backbone.View.extend(
 		}, this);
 
 		return this;
+	},
+	/**
+	 * Click event.
+	 * 
+	 * @param e
+	 *            jQuery.Event object
+	 */
+	onClick : function(e) {
+		window.open(jsRoutes.controllers.PartVersionDetailController.index(this.model.get("id")).absoluteURL());
 	}
 });

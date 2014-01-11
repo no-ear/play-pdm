@@ -42,7 +42,7 @@ public class PartManagerController extends Controller {
 	};
 
 	/**
-	 * Index page. User manager.
+	 * Index page. Part manager.
 	 * 
 	 * @return Http response
 	 */

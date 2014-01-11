@@ -32,5 +32,8 @@ GET    /partmanager/BoltPartVersion/readLike   controllers.BoltPartVersionContro
 # Javascript
 GET    /assets/javascripts/routes              controllers.Application.javascriptRoutes()
 
+# PartVersion Document manager
+GET    /partversiondetail/:id                  controllers.PartVersionDetailController.index(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET    /assets/*file                           controllers.Assets.at(path="/public", file)

@@ -14,6 +14,7 @@ var PartVersionTable = CollectionView.extend(
 	 * Backbone DOM element.
 	 */
 	el : '#part-table-body',
+
 	/**
 	 * Create view of each model.
 	 * 
