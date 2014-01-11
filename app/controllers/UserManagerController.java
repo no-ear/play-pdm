@@ -104,5 +104,4 @@ public class UserManagerController extends Controller {
 
 		return ok(jsonNode);
 	}
-
 }

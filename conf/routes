@@ -23,10 +23,11 @@ GET    /usermanager/readLike                   controllers.UserManagerController
 # Part manager
 GET    /partmanager                            controllers.PartManagerController.index()
 GET    /partmanager/getPartIndex               controllers.PartManagerController.getPartIndex(className)
+GET    /partmanager/readLike                   controllers.PartManagerController.readLike(className, name, value)
 
 # PartVersion CRUD
 POST   /partmanager/BoltPartVersion            controllers.BoltPartVersionController.create()
-GET    /partmanager/readLike/BoltPartVersion   controllers.BoltPartVersionController.readLike(name, value)
+GET    /partmanager/BoltPartVersion/readLike   controllers.BoltPartVersionController.readLike(name, value)
 
 # Javascript
 GET    /assets/javascripts/routes              controllers.Application.javascriptRoutes()

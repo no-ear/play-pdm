@@ -33,6 +33,7 @@ public class Application extends Controller {
 				controllers.routes.javascript.UserManagerController.readLike(),
 				controllers.routes.javascript.PartManagerController
 						.getPartIndex(),
+				controllers.routes.javascript.PartManagerController.readLike(),
 				controllers.routes.javascript.BoltPartVersionController
 						.readLike()));
 	}

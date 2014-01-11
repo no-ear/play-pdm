@@ -2,6 +2,7 @@ package models.partversions;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -9,7 +10,6 @@ import javax.persistence.Entity;
 
 import models.ModelsUtility;
 import models.Part;
-
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import annotation.PropertyAttribute;
@@ -62,8 +62,8 @@ public final class BoltPartVersion extends DesignPartVersion {
 	 * @return New part version
 	 */
 	public static BoltPartVersion buildPartVersion(
-			HashMap<String, Object> partProperties,
-			HashMap<String, Object> partVersionProperties) {
+			final HashMap<String, Object> partProperties,
+			final HashMap<String, Object> partVersionProperties) {
 
 		Part part = Part.build(partProperties);
 
@@ -99,5 +99,22 @@ public final class BoltPartVersion extends DesignPartVersion {
 		partVersion.save();
 
 		return partVersion;
+	}
+
+	public static List<BoltPartVersion> selectLike(final String name,
+			final String value) {
+		// Separete Name(Person(Const class name) + "." + field name )
+		String[] strings = name.split("\\.");
+		String className = strings[0];
+		String fieldName = strings[strings.length - 1];
+		String likeString = value + "%";
+
+		if (className.equals("Part")) {
+			return find.fetch("part").where()
+					.like("part." + fieldName, likeString).findList();
+		} else {
+			return find.fetch("part").where().like(fieldName, likeString)
+					.findList();
+		}
 	}
 }

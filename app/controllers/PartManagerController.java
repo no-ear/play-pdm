@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import models.AttributeDefinition;
 import models.ClassDefinition;
 import models.Part;
-import models.Person;
 import models.partversions.BoltPartVersion;
 import models.partversions.FramePartVersion;
 import play.mvc.BodyParser;
@@ -88,5 +87,30 @@ public class PartManagerController extends Controller {
 
 		ArrayNode jsonNode = AttributeDefinition.toArrayNode(array);
 		return ok(jsonNode);
+	}
+
+	/**
+	 * Simple search.
+	 * 
+	 * @param className
+	 *            part version class name
+	 * @param name
+	 *            Person attribute name
+	 * @param value
+	 *            Like search value
+	 * @return Http response(Json)
+	 */
+	@BodyParser.Of(BodyParser.Json.class)
+	public static Result readLike(final String className, final String name,
+			final String value) {
+		if (className.equals("") || value.equals("") || name.equals("")) {
+			return badRequest();
+		}
+
+		if (className.equals("BoltPartVersion")) {
+			return BoltPartVersionController.readLike(name, value);
+		}
+
+		return badRequest();
 	}
 };

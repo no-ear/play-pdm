@@ -40,11 +40,9 @@ var SimplePartVersionSearchForm = Backbone.View.extend(
 		var name = this.$el.find("[name='name']").val();
 		var value = this.$el.find("[name='value']").val();
 
-		$.ajax({
-			type : "GET",
-			url : "partmanager/readLike/" + this.selectedClassName,
-			data : "name=" + name + "&value=" + value,
-			success : this.onSuccess
+		jsRoutes.controllers.PartManagerController.readLike(this.selectedClassName, name, value).ajax({
+			success : this.onSuccess,
+			context : this
 		});
 	},
 	/**
@@ -56,7 +54,7 @@ var SimplePartVersionSearchForm = Backbone.View.extend(
 	 *            Response data type
 	 */
 	onSuccess : function(data, dataType) {
-		persons.reset(data);
+		partVersions.reset(data);
 	},
 	/**
 	 * Callback that selected part version class.

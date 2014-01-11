@@ -2,15 +2,18 @@ package controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import models.partversions.BoltPartVersion;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.db.ebean.Transactional;
+import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -95,6 +98,21 @@ public class BoltPartVersionController extends Controller {
 	 */
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result readLike(final String name, final String value) {
-		return TODO;
+
+		List<BoltPartVersion> list = BoltPartVersion.selectLike(name, value);
+
+		ObjectNode json = Json.newObject();
+		ArrayNode array = json.arrayNode();
+
+		for (BoltPartVersion partVersion : list) {
+			ObjectNode partJsonNode = partVersion.part.toJsonNode();
+			ObjectNode partVersionJsonNode = partVersion.toJsonNode();
+
+			partJsonNode.putAll(partVersionJsonNode);
+
+			array.add(partJsonNode);
+		}
+
+		return ok(array);
 	}
 }
