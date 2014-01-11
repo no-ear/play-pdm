@@ -1,6 +1,8 @@
 package models.partversions;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -11,9 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import models.Document;
 import models.Part;
 import models.Person;
 import annotation.PropertyAttribute;
@@ -130,6 +134,13 @@ public abstract class PartVersion extends Model {
 	@NotNull
 	@ManyToOne
 	public Part part; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Related document.
+	 */
+	@Column
+	@OneToMany
+	public List<Document> documents; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Finder.

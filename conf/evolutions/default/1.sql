@@ -3,6 +3,14 @@
 
 # --- !Ups
 
+create table documents (
+  id                        bigint auto_increment not null,
+  name                      varchar(255),
+  file                      longblob,
+  part_version_id           bigint,
+  constraint pk_documents primary key (id))
+;
+
 create table parts (
   id                        bigint auto_increment not null,
   name                      varchar(255),
@@ -40,14 +48,18 @@ create table persons (
   constraint pk_persons primary key (id))
 ;
 
-alter table part_versions add constraint fk_part_versions_part_1 foreign key (part_id) references parts (id) on delete restrict on update restrict;
-create index ix_part_versions_part_1 on part_versions (part_id);
+alter table documents add constraint fk_documents_partVersion_1 foreign key (part_version_id) references part_versions (id) on delete restrict on update restrict;
+create index ix_documents_partVersion_1 on documents (part_version_id);
+alter table part_versions add constraint fk_part_versions_part_2 foreign key (part_id) references parts (id) on delete restrict on update restrict;
+create index ix_part_versions_part_2 on part_versions (part_id);
 
 
 
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
+
+drop table documents;
 
 drop table parts;
 

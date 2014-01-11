@@ -25,6 +25,7 @@ public final class ModelsUtility {
 			put(String.class, new ParseString());
 			put(Date.class, new ParseDate());
 			put(double.class, new ParseObject());
+			put(int.class, new ParseObject());
 		}
 	};
 
