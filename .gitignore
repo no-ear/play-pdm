@@ -16,4 +16,5 @@ dist
 /.target
 
 .cache
+cache
 
