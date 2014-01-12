@@ -1,4 +1,4 @@
-@(id : Long)
+@(id : Long, documents : List[Document])
 
 <html>
 <head>
@@ -10,6 +10,9 @@
 		enctype="multipart/form-data">
 		ファイル：<br /> <input type="file" name="upfile" size="30" /><br /> <br /> <input type="submit" value="アップロード" />
 	</form>
+@documents.map { document =>
+	<a href="@routes.DocumentContoller.download(document.fileHash)">@document.fileName</a> 
+}
 </body>
 </html>
 

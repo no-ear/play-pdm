@@ -13,8 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 import models.partversions.PartVersion;
 import play.db.ebean.Model;
@@ -35,16 +37,31 @@ public final class Document extends Model {
 	public long id; // SUPPRESS CHECKSTYLE getter/setter create play framework.
 
 	/**
-	 * Part name.
-	 */
-	@Column
-	public String name; // SUPPRESS CHECKSTYLE
-
-	/**
 	 * File binary data.
 	 */
 	@Lob
+	@NotNull
 	public byte[] file; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Original file name.
+	 */
+	@Column
+	@NotNull
+	public String fileName; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Original file name.
+	 */
+	@Column(unique = true)
+	@NotNull
+	public String fileHash; // SUPPRESS CHECKSTYLE
+
+	/**
+	 * Original file extension.
+	 */
+	@Column
+	public String fileExtension; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Related part version.
@@ -56,8 +73,8 @@ public final class Document extends Model {
 	/**
 	 * Finder.
 	 */
-	public static Model.Finder<Long, Part> find = new Model.Finder<Long, Part>( // SUPPRESS CHECKSTYLE
-			Long.class, Part.class);
+	public static Model.Finder<Long, Document> find = new Model.Finder<Long, Document>( // SUPPRESS CHECKSTYLE
+			Long.class, Document.class);
 
 	/**
 	 * Serial Version ID.
@@ -65,7 +82,8 @@ public final class Document extends Model {
 	private static final long serialVersionUID = -1695193238431975776L;
 
 	public static Document buildDocument(
-			final HashMap<String, Object> properties, final File file) throws Exception {
+			final HashMap<String, Object> properties, final File file,
+			PartVersion partVersion) throws Exception {
 		Document document = new Document();
 
 		Field[] fields = Document.class.getFields();
@@ -86,7 +104,8 @@ public final class Document extends Model {
 		}
 
 		document.file = readFileToByte(file.getPath());
-
+		document.fileHash = DigestUtils.sha256Hex(document.file);
+		document.partVersion = partVersion;
 		document.save();
 
 		return document;

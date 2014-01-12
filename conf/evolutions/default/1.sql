@@ -5,9 +5,12 @@
 
 create table documents (
   id                        bigint auto_increment not null,
-  name                      varchar(255),
-  file                      longblob,
+  file                      longblob not null,
+  file_name                 varchar(255) not null,
+  file_hash                 varchar(255) not null,
+  file_extension            varchar(255),
   part_version_id           bigint,
+  constraint uq_documents_file_hash unique (file_hash),
   constraint pk_documents primary key (id))
 ;
 

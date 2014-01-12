@@ -44,7 +44,7 @@ import play.db.ebean.Model;
 @Table(name = "part_versions")
 @Inheritance
 @DiscriminatorColumn(name = "discriminator")
-public abstract class PartVersion extends Model {
+public class PartVersion extends Model {
 
 	/**
 	 * Surrogate key.
