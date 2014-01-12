@@ -30,7 +30,7 @@ public class PartManagerController extends Controller {
 	 * ClassDefinition not serializable.
 	 */
 	@SuppressWarnings("serial")
-	public static Map<String, ClassDefinition> entityClassMap = new LinkedHashMap<String, ClassDefinition>() { // SUPPRESS CHECKSTYLE
+	private static Map<String, ClassDefinition> entityClassMap = new LinkedHashMap<String, ClassDefinition>() {
 		{
 			ClassDefinition classDefinition = new ClassDefinition(
 					BoltPartVersion.class);
@@ -65,7 +65,6 @@ public class PartManagerController extends Controller {
 		Field[] partFields = Part.class.getFields();
 		AttributeDefinition[] partAttributeDefinitions = AttributeDefinition
 				.getAttributeDefinitions(partClassDefinition, partFields);
-
 		for (AttributeDefinition attr : partAttributeDefinitions) {
 			attributeDefinitionList.add(attr);
 		}

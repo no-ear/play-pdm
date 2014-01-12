@@ -1,12 +1,6 @@
 package views;
 
-import java.lang.reflect.Field;
-
-import javax.validation.constraints.NotNull;
-
 import models.AttributeDefinition;
-import models.Person;
-import annotation.PropertyAttribute;
 
 /**
  * usermanager.scala.html support class.

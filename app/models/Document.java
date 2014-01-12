@@ -1,8 +1,8 @@
 package models;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 
 import models.partversions.PartVersion;
 import play.db.ebean.Model;
@@ -81,9 +82,22 @@ public final class Document extends Model {
 	 */
 	private static final long serialVersionUID = -1695193238431975776L;
 
+	/**
+	 * Build document.
+	 * 
+	 * @param properties
+	 *            Document properties
+	 * @param file
+	 *            File contents
+	 * @param partVersion
+	 *            Part version relation
+	 * @return New document
+	 * @throws IOException
+	 *             Not found file, Access error, etc.
+	 */
 	public static Document buildDocument(
 			final HashMap<String, Object> properties, final File file,
-			PartVersion partVersion) throws Exception {
+			final PartVersion partVersion) throws IOException {
 		Document document = new Document();
 
 		Field[] fields = Document.class.getFields();
@@ -103,9 +117,10 @@ public final class Document extends Model {
 			}
 		}
 
-		document.file = readFileToByte(file.getPath());
+		document.file = readFileToByte(file);
 		document.fileHash = DigestUtils.sha256Hex(document.file);
 		document.partVersion = partVersion;
+
 		document.save();
 
 		return document;
@@ -114,24 +129,26 @@ public final class Document extends Model {
 	/**
 	 * File to byte[].
 	 * 
-	 * @param filePath
-	 *            Target file path
+	 * @param file
+	 *            Target file
 	 * @return byte array
-	 * @throws Exception
+	 * @throws IOException
 	 *             Not found file, Access error, etc.
 	 */
-	private static byte[] readFileToByte(final String filePath)
-			throws Exception {
-		byte[] b = new byte[1];
-		FileInputStream fis = new FileInputStream(filePath);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		while (fis.read(b) > 0) {
-			baos.write(b);
-		}
-		baos.close();
-		fis.close();
-		b = baos.toByteArray();
+	private static byte[] readFileToByte(final File file) throws IOException {
+		byte[] byteArray = null;
 
-		return b;
+		FileInputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream(file);
+
+			byteArray = IOUtils.toByteArray(inputStream);
+		} finally {
+			if (inputStream != null) {
+				inputStream.close();
+			}
+		}
+
+		return byteArray;
 	}
 }

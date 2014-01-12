@@ -21,7 +21,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @DiscriminatorValue("BOLT_PART_VERSION")
-public final class BoltPartVersion extends DesignPartVersion {
+public final class BoltPartVersion extends PartVersion {
 
 	/**
 	 * Example unique attribute.
@@ -48,6 +48,11 @@ public final class BoltPartVersion extends DesignPartVersion {
 	 */
 	private static final long serialVersionUID = -59223505116187178L;
 
+	/**
+	 * Part version to JSON(java).
+	 * 
+	 * @return JSON(java)
+	 */
 	public ObjectNode toJsonNode() {
 		ObjectNode jsonNode = ModelsUtility.toJsonNode(this);
 
@@ -105,6 +110,15 @@ public final class BoltPartVersion extends DesignPartVersion {
 		return partVersion;
 	}
 
+	/**
+	 * Select like.
+	 * 
+	 * @param name
+	 *            Attribute name
+	 * @param value
+	 *            Attribute value
+	 * @return Result list
+	 */
 	public static List<BoltPartVersion> selectLike(final String name,
 			final String value) {
 		// Separete Name(Person(Const class name) + "." + field name )

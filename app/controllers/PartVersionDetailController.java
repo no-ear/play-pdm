@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import models.Document;
@@ -31,28 +32,39 @@ public class PartVersionDetailController extends Controller {
 		return ok(PartVersionDetail.render(id, partVersion.documents));
 	}
 
+	/**
+	 * Document upload.
+	 * 
+	 * @param id
+	 *            Part version id
+	 * @return Http response
+	 */
 	public static Result upload(final long id) {
 		MultipartFormData body = request().body().asMultipartFormData();
 
-		FilePart picture = body.getFile("upfile");
+		FilePart filePart = body.getFile("upfile");
 
-		if (picture != null) {
-			String fileName = picture.getFilename();
-			// String contentType = picture.getContentType();
-			File file = picture.getFile();
+		if (filePart != null) {
+			String fileName = filePart.getFilename();
+			@SuppressWarnings("unused")
+			String contentType = filePart.getContentType();
+			File file = filePart.getFile();
+
+			// TODO contentType, file extension, MIME check.
 
 			PartVersion partVersion = PartVersion.find.byId(id);
 
 			HashMap<String, Object> properties = new HashMap<String, Object>();
 
 			properties.put("Document.fileName", fileName);
-			properties.put("Document.fileExtension", getSuffix(file.getPath()));
+			properties.put("Document.fileExtension",
+					getExtension(file.getPath()));
 
 			try {
 				Document.buildDocument(properties, file, partVersion);
-			} catch (Exception e) {
+			} catch (IOException e) {
 				e.printStackTrace();
-				return badRequest();
+				return internalServerError();
 			}
 
 			return ok("File uploaded");
@@ -63,13 +75,13 @@ public class PartVersionDetailController extends Controller {
 	}
 
 	/**
-	 * ファイル名から拡張子を返します。
+	 * Get extension from file name string.
 	 * 
 	 * @param fileName
-	 *            ファイル名
-	 * @return ファイルの拡張子
+	 *            file name
+	 * @return file name extension
 	 */
-	private static String getSuffix(final String fileName) {
+	private static String getExtension(final String fileName) {
 		if (fileName == null) {
 			return null;
 		}
@@ -79,6 +91,6 @@ public class PartVersionDetailController extends Controller {
 			return fileName.substring(point + 1);
 		}
 
-		return fileName;
+		return null;
 	}
 }

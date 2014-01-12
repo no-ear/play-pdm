@@ -117,7 +117,7 @@ public final class Person extends Model {
 		Person person = find.where().eq("name", name).findUnique();
 
 		if (person == null) {
-			// ログイン名を発見できなかった。
+			// Not found login user
 			return null;
 		}
 

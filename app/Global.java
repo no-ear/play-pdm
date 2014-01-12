@@ -8,7 +8,7 @@ import play.GlobalSettings;
 import play.libs.Yaml;
 
 /**
- * アプリケーションのグローバル設定クラス.
+ * Application global configuration class.
  */
 public final class Global extends GlobalSettings {
 

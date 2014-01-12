@@ -11,7 +11,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @DiscriminatorValue("FRAME_PART_VERSION")
-public class FramePartVersion extends DesignPartVersion {
+public class FramePartVersion extends PartVersion {
 
 	/**
 	 * Example unique attribute.

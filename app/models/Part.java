@@ -91,6 +91,13 @@ public final class Part extends Model {
 	 */
 	private static final long serialVersionUID = -7556779886341618589L;
 
+	/**
+	 * Build new part object.
+	 * 
+	 * @param partProperties
+	 *            new part properties
+	 * @return new part
+	 */
 	public static Part build(final HashMap<String, Object> partProperties) {
 		Part part = new Part();
 
@@ -116,6 +123,11 @@ public final class Part extends Model {
 		return part;
 	}
 
+	/**
+	 * Part to Json(java).
+	 * 
+	 * @return Json(java)
+	 */
 	public ObjectNode toJsonNode() {
 		return ModelsUtility.toJsonNode(this);
 	}

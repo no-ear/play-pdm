@@ -61,7 +61,10 @@ public final class AttributeDefinition implements
 	 */
 	public int priorityNumber; // SUPPRESS CHECKSTYLE
 
-	public InputType inputType;
+	/**
+	 * Type of html input tag.
+	 */
+	public InputType inputType; // SUPPRESS CHECKSTYLE
 
 	/**
 	 * Constructor.

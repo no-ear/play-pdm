@@ -18,5 +18,4 @@ public final class Secured extends Security.Authenticator {
 	public Result onUnauthorized(final Context ctx) {
 		return redirect(routes.LoginController.login());
 	}
-
 }

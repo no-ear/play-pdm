@@ -17,9 +17,11 @@ public class DocumentContoller extends Controller {
 	/**
 	 * Document download.
 	 * 
+	 * @param fileName
+	 *            Request file name(equal document hash).
 	 * @return Http response
 	 */
-	public static Result download(String fileName) {
+	public static Result download(final String fileName) {
 
 		String path = "public/cache/" + fileName;
 		File file = new File(path);
@@ -29,11 +31,11 @@ public class DocumentContoller extends Controller {
 
 		if (!file.exists()) {
 			// Create cache file
-			FileOutputStream fos;
+			FileOutputStream stream;
 			try {
-				fos = new FileOutputStream(path);
-				fos.write(document.file);
-				fos.close();
+				stream = new FileOutputStream(path);
+				stream.write(document.file);
+				stream.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 				return badRequest();
