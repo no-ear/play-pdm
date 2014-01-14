@@ -7,7 +7,8 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   "mysql" % "mysql-connector-java" % "5.1.25",
-  "commons-codec" % "commons-codec" % "1.9"
+  "commons-codec" % "commons-codec" % "1.9",
+  "commons-io" % "commons-io" % "2.4"
 )     
 
 play.Project.playJavaSettings
