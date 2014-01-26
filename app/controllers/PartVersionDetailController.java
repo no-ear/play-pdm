@@ -44,34 +44,32 @@ public class PartVersionDetailController extends Controller {
 
 		FilePart filePart = body.getFile("upfile");
 
-		if (filePart != null) {
-			String fileName = filePart.getFilename();
-			@SuppressWarnings("unused")
-			String contentType = filePart.getContentType();
-			File file = filePart.getFile();
-
-			// TODO contentType, file extension, MIME check.
-
-			PartVersion partVersion = PartVersion.find.byId(id);
-
-			HashMap<String, Object> properties = new HashMap<String, Object>();
-
-			properties.put("Document.fileName", fileName);
-			properties.put("Document.fileExtension",
-					getExtension(file.getPath()));
-
-			try {
-				Document.buildDocument(properties, file, partVersion);
-			} catch (IOException e) {
-				e.printStackTrace();
-				return internalServerError();
-			}
-
-			return ok("File uploaded");
-		} else {
-			flash("error", "Missing file");
-			return redirect(routes.Application.index());
+		if (filePart == null) {
+			return internalServerError();
 		}
+
+		String fileName = filePart.getFilename();
+		@SuppressWarnings("unused")
+		String contentType = filePart.getContentType();
+		File file = filePart.getFile();
+
+		// TODO contentType, file extension, MIME check.
+
+		PartVersion partVersion = PartVersion.find.byId(id);
+
+		HashMap<String, Object> properties = new HashMap<String, Object>();
+
+		properties.put("Document.fileName", fileName);
+		properties.put("Document.fileExtension", getExtension(file.getPath()));
+
+		try {
+			Document.buildDocument(properties, file, partVersion);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return internalServerError();
+		}
+
+		return ok();
 	}
 
 	/**

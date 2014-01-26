@@ -52,7 +52,7 @@ public final class Document extends Model {
 	public String fileName; // SUPPRESS CHECKSTYLE
 
 	/**
-	 * Original file name.
+	 * File hash.
 	 */
 	@Column(unique = true)
 	@NotNull
