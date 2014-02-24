@@ -18,13 +18,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import models.Document;
+import models.ModelsUtility;
+import models.Packetable;
 import models.Part;
 import models.Person;
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import play.api.libs.json.JsValue;
 import play.db.ebean.Model;
 
 /**
@@ -44,7 +48,7 @@ import play.db.ebean.Model;
 @Table(name = "part_versions")
 @Inheritance
 @DiscriminatorColumn(name = "discriminator")
-public class PartVersion extends Model {
+public class PartVersion extends Model implements Packetable {
 
 	/**
 	 * Surrogate key.
@@ -152,4 +156,15 @@ public class PartVersion extends Model {
 	 * Serial Version ID.
 	 */
 	private static final long serialVersionUID = 8112656005314996071L;
+
+	@Override
+	public ObjectNode toJsonNode() {
+		return ModelsUtility.toJsonNode(this);
+	}
+
+	@Override
+	public JsValue toJsValue() {
+		ObjectNode jsonObject = toJsonNode();
+		return play.api.libs.json.Json.parse(jsonObject.toString());
+	}
 }

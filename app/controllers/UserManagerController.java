@@ -7,6 +7,7 @@ import java.util.List;
 
 import models.AttributeDefinition;
 import models.ClassDefinition;
+import models.PacketUtility;
 import models.Person;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -100,8 +101,7 @@ public class UserManagerController extends Controller {
 
 		List<Person> list = Person.selectLike(fieldName, value);
 
-		ArrayNode jsonNode = Person.toArrayNode(list);
-
+		ArrayNode jsonNode = PacketUtility.toArrayNode(list);
 		return ok(jsonNode);
 	}
 }

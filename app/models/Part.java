@@ -18,6 +18,7 @@ import annotation.PropertyAttribute.InputType;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import play.api.libs.json.JsValue;
 import play.db.ebean.Model;
 
 /**
@@ -25,7 +26,7 @@ import play.db.ebean.Model;
  */
 @Entity
 @Table(name = "parts")
-public final class Part extends Model {
+public final class Part extends Model implements Packetable {
 
 	/**
 	 * Surrogate key.
@@ -123,12 +124,14 @@ public final class Part extends Model {
 		return part;
 	}
 
-	/**
-	 * Part to Json(java).
-	 * 
-	 * @return Json(java)
-	 */
+	@Override
 	public ObjectNode toJsonNode() {
 		return ModelsUtility.toJsonNode(this);
+	}
+
+	@Override
+	public JsValue toJsValue() {
+		ObjectNode jsonObject = toJsonNode();
+		return play.api.libs.json.Json.parse(jsonObject.toString());
 	}
 }

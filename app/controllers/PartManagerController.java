@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import models.AttributeDefinition;
 import models.ClassDefinition;
+import models.PacketUtility;
 import models.Part;
 import models.partversions.BoltPartVersion;
 import models.partversions.FramePartVersion;
@@ -84,7 +85,7 @@ public class PartManagerController extends Controller {
 				.size()];
 		attributeDefinitionList.toArray(array);
 
-		ArrayNode jsonNode = AttributeDefinition.toArrayNode(array);
+		ArrayNode jsonNode = PacketUtility.toArrayNode(array);
 		return ok(jsonNode);
 	}
 

@@ -49,19 +49,6 @@ public final class BoltPartVersion extends PartVersion {
 	private static final long serialVersionUID = -59223505116187178L;
 
 	/**
-	 * Part version to JSON(java).
-	 * 
-	 * @return JSON(java)
-	 */
-	public ObjectNode toJsonNode() {
-		ObjectNode jsonNode = ModelsUtility.toJsonNode(this);
-
-		// Append Backbone use id.
-		jsonNode.put("id", id);
-		return jsonNode;
-	}
-
-	/**
 	 * Build new part version.
 	 * 
 	 * @param partProperties

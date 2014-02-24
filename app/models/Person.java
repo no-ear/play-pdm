@@ -16,13 +16,12 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import annotation.PropertyAttribute;
 import annotation.PropertyAttribute.InputType;
+import play.api.libs.json.JsValue;
 import play.db.ebean.Model;
-import play.libs.Json;
 
 /**
  * Person model class.<br>
@@ -30,7 +29,7 @@ import play.libs.Json;
  */
 @Entity
 @Table(name = "persons")
-public final class Person extends Model {
+public final class Person extends Model implements Packetable {
 
 	/**
 	 * Surrogate key.
@@ -173,30 +172,6 @@ public final class Person extends Model {
 	}
 
 	/**
-	 * Convert person list to json. <br>
-	 * TODO これもどうなの？ここ？
-	 * 
-	 * @param list
-	 *            Person array list.
-	 * @return Person json data.
-	 */
-	public static ArrayNode toArrayNode(final List<Person> list) {
-		ObjectNode json = Json.newObject();
-		ArrayNode array = json.arrayNode();
-
-		for (Person person : list) {
-			ObjectNode jsonObject = ModelsUtility.toJsonNode(person);
-
-			// Set id always. use backbone.js.
-			jsonObject.put("id", Long.toString(person.id));
-
-			array.add(jsonObject);
-		}
-
-		return array;
-	}
-
-	/**
 	 * Select like input value.
 	 * 
 	 * @param attributeName
@@ -209,6 +184,17 @@ public final class Person extends Model {
 			final String value) {
 		String likeString = value + "%";
 		return find.where().like(attributeName, likeString).findList();
+	}
+
+	@Override
+	public ObjectNode toJsonNode() {
+		return ModelsUtility.toJsonNode(this);
+	}
+
+	@Override
+	public JsValue toJsValue() {
+		ObjectNode jsonObject = toJsonNode();
+		return play.api.libs.json.Json.parse(jsonObject.toString());
 	}
 
 }

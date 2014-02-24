@@ -6,8 +6,6 @@ import java.util.Collections;
 
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.api.libs.json.JsValue;
@@ -20,7 +18,7 @@ import annotation.PropertyAttribute.InputType;
  * Model field meta info.
  */
 public final class AttributeDefinition implements
-		Comparable<AttributeDefinition> {
+		Comparable<AttributeDefinition>, Packetable {
 	/**
 	 * Class definition.
 	 */
@@ -145,31 +143,8 @@ public final class AttributeDefinition implements
 		return list.toArray(result);
 	}
 
-	/**
-	 * To Json ArrayNode From AttributeDefinition array.
-	 * 
-	 * @param attributeDefinitions
-	 *            Class attribute definition array
-	 * @return Json(Java) array.
-	 */
-	public static ArrayNode toArrayNode(
-			final AttributeDefinition[] attributeDefinitions) {
-		ObjectNode json = Json.newObject();
-		ArrayNode array = json.arrayNode();
-
-		for (AttributeDefinition attr : attributeDefinitions) {
-			array.add(attr.toJsonNode());
-		}
-
-		return array;
-	}
-
-	/**
-	 * Convert to Json(Java).
-	 * 
-	 * @return Json(Java)
-	 */
-	private JsonNode toJsonNode() {
+	@Override
+	public ObjectNode toJsonNode() {
 		ObjectNode jsonObject = Json.newObject();
 
 		jsonObject.put("className", classDefinition.name);
@@ -184,18 +159,9 @@ public final class AttributeDefinition implements
 		return jsonObject;
 	}
 
-	/**
-	 * To JsValue(Json for Scala) From AttributeDefinition array.
-	 * 
-	 * @param attributeDefinitions
-	 *            Class field attribute definition array
-	 * @return Json(Scala)
-	 */
-	public static JsValue toJsArray(
-			final AttributeDefinition[] attributeDefinitions) {
-
-		ArrayNode jsonObject = toArrayNode(attributeDefinitions);
-
+	@Override
+	public JsValue toJsValue() {
+		ObjectNode jsonObject = toJsonNode();
 		return play.api.libs.json.Json.parse(jsonObject.toString());
 	}
 
