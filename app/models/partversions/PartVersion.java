@@ -158,12 +158,14 @@ public class PartVersion extends Model implements Packetable {
 	private static final long serialVersionUID = 8112656005314996071L;
 
 	@Override
-	public ObjectNode toJsonNode() {
-		return ModelsUtility.toJsonNode(this);
+	public final ObjectNode toJsonNode() {
+		ObjectNode jsonNode = ModelsUtility.toJsonNode(this);
+		jsonNode.put("id", id);
+		return jsonNode;
 	}
 
 	@Override
-	public JsValue toJsValue() {
+	public final JsValue toJsValue() {
 		ObjectNode jsonObject = toJsonNode();
 		return play.api.libs.json.Json.parse(jsonObject.toString());
 	}
