@@ -34,11 +34,10 @@ public final class PersonTest extends WithApplication {
 	@Before
 	public void setUp() {
 		Map<String, String> settings = new HashMap<String, String>();
-		settings.put("db.default.driver", "com.mysql.jdbc.Driver");
-		settings.put("db.default.url",
-				"jdbc:mysql://localhost:3306/playpdmtest");
-		settings.put("db.default.user", "playpdm");
-		settings.put("db.default.password", "playpdm");
+		settings.put("db.default.driver", "org.postgresql.Driver");
+		settings.put("db.default.url", "jdbc:postgresql://localhost/playpdmtest");
+		settings.put("db.default.user", "postgres");
+		settings.put("db.default.password", "postgres");
 
 		start(fakeApplication(settings, fakeGlobal()));
 

@@ -6,7 +6,7 @@ libraryDependencies ++= Seq(
   javaJdbc,
   javaEbean,
   cache,
-  "mysql" % "mysql-connector-java" % "5.1.25",
+  "org.postgresql" % "postgresql" % "9.3-1100-jdbc41",
   "commons-codec" % "commons-codec" % "1.9",
   "commons-io" % "commons-io" % "2.4"
 )     
