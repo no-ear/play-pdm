@@ -1,4 +1,9 @@
-@()
+@(attributeDefinitions: Array[AttributeDefinition])
+
+@import play.api.libs.json.Json; 
+@import play.api.libs.json.JsValue; 
+@import scala.collection.mutable.Buffer; 
+@import scala.collection.immutable.Map;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,15 +15,32 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.png")">
 
-<title>Play PDM</title>
+<title>Play PDM BOM management editor</title>
 
 <link href="@routes.Assets.at("bootstrap/css/bootstrap.css")" rel="stylesheet">
-<link href="@routes.Assets.at("stylesheets/index.css")" rel="stylesheet">
+<link href="@routes.Assets.at("stylesheets/partmanager.css")" rel="stylesheet">
+
+@* Underscore template *@
+<script type="text/template" id="assembly-component-table-row-template">
+@attributeDefinitions.map { attributeDefinition =>
+	@if(attributeDefinition.isRead == true){
+	<td>
+	<%= get("@attributeDefinition.name") %>
+	</td>	
+	}	 
+} 
+</script>
+
+@* JavaScirpt Router *@
+<script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
 
 @* External library *@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("bootstrap/js/bootstrap.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/underscore.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/backbone.js")"></script>
 
+@* Backbone model *@ @* Grobal models, like database tables. *@@* Backbone view *@@* main *@
 </head>
 
 <body>
@@ -33,47 +55,13 @@
 			</div>
 		</div>
 	</nav>
-
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<!-- <div class="jumbotron">
-		<div class="container">
-			<h1>Play PDM</h1>
-		</div>
-	</div> -->
-
 	<div class="container">
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="col-md-4">
-				<h2>Part management</h2>
-				<p>
-					<a class="btn btn-default" href="@routes.PartManagerController.index" role="button">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="col-md-4">
-				<h2>BOM management editor</h2>
-				<p>
-					<a class="btn btn-default" href="@routes.BomManagementEditorController.index" role="button">View details &raquo;</a>
-				</p>
-			</div>
-			<div class="col-md-4">
-				<h2>User management</h2>
-				<p>
-					<a class="btn btn-default" href="@routes.UserManagerController.index" role="button">View details &raquo;</a>
-				</p>
-			</div>
-		</div>
-
 		<hr>
 
 		<footer>
 			<p>&copy; Company 2013</p>
-			<!-- Write java only once. -->
 		</footer>
 	</div>
-	<!-- /container -->
-
 </body>
 </html>
-
 

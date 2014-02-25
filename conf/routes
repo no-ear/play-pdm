@@ -36,6 +36,9 @@ GET    /assets/javascripts/routes              controllers.Application.javascrip
 GET    /partversiondetail/:id                  controllers.PartVersionDetailController.index(id: Long)
 POST   /partversiondetail/:id                  controllers.PartVersionDetailController.upload(id: Long)
 
+# BOM management editor
+GET    /bommanagementeditor                    controllers.BomManagementEditorController.index()
+
 # 
 GET    /assets/cache/:filename                 controllers.DocumentContoller.download(filename)
 

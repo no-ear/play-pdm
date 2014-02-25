@@ -3,6 +3,12 @@
 
 # --- !Ups
 
+create table assembly_components (
+  id                        bigint not null,
+  quantity_of_component     bigint,
+  constraint pk_assembly_components primary key (id))
+;
+
 create table documents (
   id                        bigint not null,
   file                      bytea not null,
@@ -51,6 +57,8 @@ create table persons (
   constraint pk_persons primary key (id))
 ;
 
+create sequence assembly_components_seq;
+
 create sequence documents_seq;
 
 create sequence parts_seq;
@@ -68,6 +76,8 @@ create index ix_part_versions_part_2 on part_versions (part_id);
 
 # --- !Downs
 
+drop table if exists assembly_components cascade;
+
 drop table if exists documents cascade;
 
 drop table if exists parts cascade;
@@ -75,6 +85,8 @@ drop table if exists parts cascade;
 drop table if exists part_versions cascade;
 
 drop table if exists persons cascade;
+
+drop sequence if exists assembly_components_seq;
 
 drop sequence if exists documents_seq;
 
